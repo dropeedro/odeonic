@@ -1,64 +1,103 @@
 <template>
-    <nav>
-      <ul>
-        <li class="logo"><img src="C:/Users/Diego/Desktop/ODEONIC/Odeonic-project/src/assets/ODEONICLOGO.png" alt="LOGO" width="180px"></li>
-        <li><router-link to="/" class="nav-button">Home</router-link></li>
-        <li><router-link to="/about" class="nav-button">About</router-link></li>
-        <li><router-link to="/plans" class="nav-button">Plans</router-link></li>
-        <li><router-link to="/login" class="nav-button">Log-In</router-link></li>
-        <li><button class="nav-cart">Cart</button></li>
-      </ul>
-    </nav>
-  </template>
-  
-  <script>
-  export default {
-    name: 'Navbar'
-  }
-  </script>
-  
-  <style scoped>
+  <nav>
+    <ul>
+      <li class="logo"><img src="C:/Users/Diego/Desktop/ODEONIC/Odeonic-project/src/assets/ODEONICLOGO.png" alt="LOGO" width="180px"></li>
+      <li class="nav-item"><button><router-link to="/" class="nav-button">Home</router-link></button></li>
+      <li class="nav-item"><button><router-link to="/" class="nav-button">Generate now</router-link></button></li>
+      <li class="nav-item"><button><router-link to="/about" class="nav-button">About us</router-link></button></li>
+      <li class="nav-item"><button><router-link to="/plans" class="nav-button">Pricing Plans</router-link></button></li>
+      <li class="nav-item"><button><router-link to="/login" class="nav-button">Log-In</router-link></button></li>
+      <li class="nav-item"><button class="nav-button"><i class="pi pi-shopping-bag"></i></button></li>
+    </ul>
+  </nav>
+</template>
+
+<script>
+export default {
+  name: 'Navbar'
+}
+</script>
+
+<style scoped>
+nav {
+  background-color: #ffffff;
+  color: var(--text-color);
+  padding: 1em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 1600px;
+}
+
+li {
+  color: var(--text-color);
+  font-weight: bold;
+}
+
+.logo {
+  margin-right: auto;
+  padding-top: 5px;
+}
+
+.nav-item {
+  margin-left: 20px;
+}
+
+.nav-button {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.nav-button:hover {
+  color: #000000;
+}
+
+/* Media */
+@media (max-width: 768px) {
   nav {
-    background-color: #ffffff;
-    color: white;
-    padding: 1em;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0.5em;
   }
-  
+
   ul {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0;
-    padding: 0;
-    padding-right: 40px;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  li {
-    color: rgb(226, 22, 22);
-    font-weight: bold;
-  }
-  
+
   .logo {
-    margin-right: auto;
+    padding-left: 15px;
   }
-  
-  ul > li:not(.logo) {
-    margin-left: 20px;
+
+  .nav-item {
+    margin-left: 0;
+    margin-top: 10px;
   }
-  
-  router-link {
-    color: rgb(0, 0, 0);
-    text-decoration: none;
+
+  .nav-cart {
+    margin-top: 10px;
   }
-  
-  router-link:hover {
-    color: #82328B;
+}
+
+@media (max-width: 480px) {
+  .logo img {
+    width: 120px;
   }
-  </style>
+
+  .nav-button {
+    font-size: 0.9em;
+  }
+}
+</style>

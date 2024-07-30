@@ -1,16 +1,18 @@
+@import 'primeicons/primeicons.css';
+
 :root {
-  font-family: "Montserrat",Helvetica;
+  font-family: "Montserrat", Helvetica;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(0, 0, 0, 0.87);
   background-color: #ffffff;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --text-color: #82328B;
 }
 
 a {
@@ -24,33 +26,40 @@ a:hover {
 
 body {
   margin: 0;
-  min-width: 320px;
+  padding: 0;
   min-height: 100vh;
-  width: 100%; /* Asegura que el body ocupe todo el ancho */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
 }
 
 h1 {
+  padding-top: 50px;
   font-size: 3.2em;
   line-height: 1.1;
+  text-align: left;
+  padding-left: 30px;
+  margin: 0;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
+  border-radius: 0;
+  border: none;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+  background-color: transparent;
+  color: #646cff;
+  transition: color 0.25s;
 }
+
 button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  color: #535bf2;
 }
 
 .card {
@@ -58,11 +67,79 @@ button:focus-visible {
 }
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  width: 100%; /* Asegura que el contenedor app ocupe todo el ancho */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Media queries para diferentes tamaños de pantalla */
+
+/* Dispositivos móviles (por debajo de 768px) */
+@media (max-width: 767px) {
+  h1 {
+    font-size: 2em;
+    padding-left: 10px;
+    padding-top: 20px;
+  }
+
+  .text {
+    padding: 10px;
+  }
+
+  .content {
+    flex-direction: column; /* Coloca el texto y la imagen uno debajo del otro */
+    align-items: flex-start;
+    height: auto; /* Ajusta el alto automáticamente */
+  }
+
+  .image img {
+    width: 100%;
+    height: auto; /* Mantiene la proporción de la imagen */
+  }
+}
+
+/* Tablets (entre 768px y 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  h1 {
+    font-size: 2.5em;
+    padding-left: 20px;
+  }
+
+  .text {
+    padding: 20px;
+  }
+
+  .content {
+    flex-direction: row; /* Mantiene el texto y la imagen en fila */
+  }
+
+  .image img {
+    width: 100%;
+    height: auto; /* Mantiene la proporción de la imagen */
+  }
+}
+
+/* Pantallas grandes (1024px y más) */
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 3.2em;
+    padding-left: 30px;
+  }
+
+  .text {
+    padding: 20px;
+  }
+
+  .content {
+    flex-direction: row; /* Mantiene el texto y la imagen en fila */
+  }
+
+  .image img {
+    width: 100%;
+    height: auto; /* Mantiene la proporción de la imagen */
+  }
 }
 
 @media (prefers-color-scheme: light) {
