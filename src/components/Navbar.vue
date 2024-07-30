@@ -41,7 +41,7 @@
   }
   
   li {
-    color: rgb(0, 0, 0);
+    color: rgb(226, 22, 22);
     font-weight: bold;
   }
   
@@ -50,7 +50,7 @@
   }
   
   ul > li:not(.logo) {
-    margin-left: 70px;
+    margin-left: 20px;
   }
   
   router-link {
