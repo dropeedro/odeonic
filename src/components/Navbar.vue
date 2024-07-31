@@ -3,9 +3,9 @@
     <ul>
       <li class="logo"><img src="C:/Users/Diego/Desktop/ODEONIC/Odeonic-project/src/assets/ODEONICLOGO.png" alt="LOGO" width="180px"></li>
       <li class="nav-item"><button><router-link to="/" class="nav-button">Home</router-link></button></li>
-      <li class="nav-item"><button><router-link to="/" class="nav-button">Generate now</router-link></button></li>
       <li class="nav-item"><button><router-link to="/about" class="nav-button">About us</router-link></button></li>
-      <li class="nav-item"><button><router-link to="/plans" class="nav-button">Pricing Plans</router-link></button></li>
+      <li class="nav-item"><button><router-link to="/" class="nav-button">Generate Music</router-link></button></li>
+      <li class="nav-item"><button><router-link to="/plans" class="nav-button">Plans</router-link></button></li>
       <li class="nav-item"><button><router-link to="/login" class="nav-button">Log-In</router-link></button></li>
       <li class="nav-item"><button class="nav-button"><i class="pi pi-shopping-bag"></i></button></li>
     </ul>
@@ -20,8 +20,8 @@ export default {
 
 <style scoped>
 nav {
-  background-color: #ffffff;
-  color: var(--text-color);
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
   padding: 1em;
   position: fixed;
   top: 0;
@@ -44,7 +44,7 @@ ul {
 }
 
 li {
-  color: var(--text-color);
+  color: var(--primary-color);
   font-weight: bold;
 }
 
@@ -58,12 +58,12 @@ li {
 }
 
 .nav-button {
-  color: var(--text-color);
+  color: var(--primary-color);
   text-decoration: none;
 }
 
 .nav-button:hover {
-  color: #000000;
+  color: var(--terciary-color);
 }
 
 /* Media */
