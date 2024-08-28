@@ -1,12 +1,12 @@
 <template>
   <nav>
     <ul>
-      <li class="logo"><img src="C:/Users/Diego/Desktop/ODEONIC/Odeonic-project/src/assets/ODEONICLOGO.png" alt="LOGO" width="180px"></li>
+      <li class="logo"><img src="https://imgur.com/cq4f4wn.png" alt="LOGO" width="250px"></li>
       <li class="nav-item"><button><router-link to="/" class="nav-button">Home</router-link></button></li>
-      <li class="nav-item"><button><router-link to="/about" class="nav-button">About us</router-link></button></li>
-      <li class="nav-item"><button><router-link to="/" class="nav-button">Generate Music</router-link></button></li>
-      <li class="nav-item"><button><router-link to="/plans" class="nav-button">Plans</router-link></button></li>
-      <li class="nav-item"><button><router-link to="/login" class="nav-button">Log-In</router-link></button></li>
+      <li class="nav-item"><button class="nav-button">About us</button></li>
+      <li class="nav-item"><button class="nav-button">Generate Music</button></li>
+      <li class="nav-item"><button class="nav-button">Plans</button></li>
+      <li class="nav-item"><button class="nav-button">Log-In</button></li>
       <li class="nav-item"><button class="nav-button"><i class="pi pi-shopping-bag"></i></button></li>
     </ul>
   </nav>
@@ -51,6 +51,7 @@ li {
 .logo {
   margin-right: auto;
   padding-top: 5px;
+  width: 100px;
 }
 
 .nav-item {
@@ -64,40 +65,5 @@ li {
 
 .nav-button:hover {
   color: var(--terciary-color);
-}
-
-/* Media */
-@media (max-width: 768px) {
-  nav {
-    padding: 0.5em;
-  }
-
-  ul {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .logo {
-    padding-left: 15px;
-  }
-
-  .nav-item {
-    margin-left: 0;
-    margin-top: 10px;
-  }
-
-  .nav-cart {
-    margin-top: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .logo img {
-    width: 120px;
-  }
-
-  .nav-button {
-    font-size: 0.9em;
-  }
 }
 </style>
