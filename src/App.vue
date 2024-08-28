@@ -10,10 +10,10 @@ import Navbar from './components/Navbar.vue'
       <div class="divsections-content">
         <div class="divsections-text">
           <h1>About us</h1>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque adipisci qui itaque, facere repudiandae molestiae dolore nulla voluptas ducimus minima accusantium aperiam sunt vel voluptatum, distinctio soluta ut rerum vitae.</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A consequatur labore earum quae, ducimus sapiente suscipit, odit atque ab error veniam officiis ex distinctio repellat. Qui a accusamus molestiae ipsam.</p>
         </div>
         <div class="divsections-image">
-          <img src="https://myscena.org/wp-content/uploads/2021/10/Beethoven_X_Header-e1635204954120.jpg" alt="aboutusimage"/>
+          <img src="https://myscena.org/wp-content/uploads/2021/10/Beethoven_X_Header-e1635204954120.jpg" alt="A representation of Beethoven"/>
         </div>
       </div>
     </div>
@@ -22,7 +22,7 @@ import Navbar from './components/Navbar.vue'
     <div class="divsections">
       <div class="divsections-content">
         <div class="divsections-image-right">
-          <img src="https://wi-tech.org/wp-content/uploads/2022/02/ai-produced-music-2-1.png" alt="generateaimusicimage"/>
+          <img src="https://assets.mofoprod.net/network/images/AI-musicBlog-hero.original.png" alt="AI-generated music illustration"/>
         </div>
         <div class="divsections-text">
           <h1>Let's Generate!</h1>
@@ -54,17 +54,17 @@ import Navbar from './components/Navbar.vue'
         <li>Soporte por email</li>
       </ul>
     </div>
-      <div class="card">
-        <h2>PREMIUN<br>PLAN</h2>
-        <p>$4.99/MONTH</p>
-        <button>GET STARTED</button>
-        <ul>
-          <br>
-          <li>Acceso completo</li>
-          <li>Hasta 5 usuarios</li>
-          <li>Soporte por chat</li>
-        </ul>
-      </div>
+    <div class="card">
+      <h2>PREMIUM<br>PLAN</h2>
+      <p>$4.99/MONTH</p>
+      <button>GET STARTED</button>
+      <ul>
+        <br>
+        <li>Acceso completo</li>
+        <li>Hasta 5 usuarios</li>
+        <li>Soporte por chat</li>
+      </ul>
+    </div>
     <div class="card">
       <h2>PRO<br>PLAN</h2>
       <p>$4.99/MONTH</p>
@@ -76,7 +76,7 @@ import Navbar from './components/Navbar.vue'
         <li>Soporte prioritario</li>
       </ul>
     </div>
-</div>
+  </div>
 </template>
 
 <style scoped>
@@ -93,8 +93,10 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60vh;
+  height: auto;
   box-sizing: border-box;
+  padding: 20px 0;
+  margin-bottom: 20px;
 }
 
 .divsections-content {
@@ -104,21 +106,27 @@ body, html {
   width: 100%;
   max-width: 100%;
   justify-content: space-between;
+  margin: 0 auto;
+  padding: 0;
 }
 
 .divsections-text {
   max-width: 50%;
   padding: 1rem;
   margin: 0 auto;
-  padding-left: 100px;
+  padding-left: 50px;
   color: var(--primary-color);
+}
+
+.divsections-text h1, .divsections-text p {
+  margin-bottom: 10px;
 }
 
 .divsections-image,
 .divsections-image-right {
   position: relative;
   max-width: 100%;
-  height: 100%;
+  height: auto;
   overflow: hidden;
 }
 
@@ -126,7 +134,7 @@ body, html {
 .divsections-image-right img {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
   position: relative;
   z-index: 1;
@@ -158,26 +166,25 @@ body, html {
   display: block;
   padding: 0.5rem 1rem;
   font-size: 1.3rem;
-  color: var(--secondary-color);;
+  color: var(--secondary-color);
   background-color: var(--primary-color);
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: var(--secondary-color);
+  transition: background-color 0.3s ease;
 }
 
 .section-button:hover {
   background-color: var(--terciary-color);
 }
 
-/*CARDS PLANES PAGO */
-
+/* Tarjetas de suscripción */
 .subscription-cards {
-  padding-top: -100%;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
   padding: 20px;
+  margin-bottom: 20px;
 }
 
 .card {
@@ -188,6 +195,7 @@ body, html {
   text-align: center;
   flex: 1;
   max-width: 300px;
+  margin-bottom: 20px;
 }
 
 .card h2 {

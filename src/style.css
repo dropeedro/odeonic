@@ -1,4 +1,7 @@
 @import 'primeicons/primeicons.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   font-family: "Montserrat", Helvetica;
@@ -43,13 +46,13 @@ html {
 }
 
 h1 {
-  font-size: 50px;
+  font-size: 60px;
   line-height: 1.1;
   text-align: left;
   margin: 0;
 }
 p {
-  font-size: 18px;
+  font-size: 24px;
 }
 
 button {
