@@ -16,3 +16,8 @@
 a {
   color: var(--primary-color);
 }
+
+body {
+  background-color: var(--secondary-color);
+
+}

@@ -16,14 +16,14 @@
           <a href="/" class="text-sm text-primaryPurpleColor">You Forgot Your Password?</a>
         </div>
         <button type="submit"
-          class=" mb-2 w-full font-bold bg-plusGrayColor text-primaryPurpleColor py-2 rounded-md hover:bg-gray-300 transition duration-300">Log
+          class=" mb-2 w-full font-bold bg-primaryPurpleColor text-plusGrayColor py-2 rounded-md">Log
           in</button>
       </form>
       <div class="mt-2 text-center text-sm text-primaryPurpleColor">
         You can also log in with
       </div>
       <div class="mb-8 mt-2 flex justify-center space-x-4">
-        <a href="#" class="text-2xl">IG</a>
+        <a href="#" class="text-2xl"></a>
         <a href="#" class="text-2xl">TK</a>
         <a href="#" class="text-2xl">GO</a>
         <a href="#" class="text-2xl">FB</a>

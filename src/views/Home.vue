@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import Plans from '../components/Plans.vue';
 import Midi from '../components/Midi.vue';
 </script>
