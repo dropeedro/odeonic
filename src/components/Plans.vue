@@ -77,7 +77,7 @@ const pricingPlans = ref([
                         <span class="mb-3 block text-lg font-semibold text-primary">{{ plan.name }}</span>
                         <h2 class="mb-5 text-[42px] font-bold text-dark ">
                             <span>{{ plan.price }}</span>
-                            <span class="text-base font-medium text-body-color "> / year </span>
+                            <span class="text-base font-medium text-body-color "> / month </span>
                         </h2>
                         <p class="mb-8 border-b border-stroke pb-8 text-base text-body-color ">
                             {{ plan.description }}
@@ -93,7 +93,7 @@ const pricingPlans = ref([
                             <p class="text-base text-body-color ">{{ plan.features.support }}</p>
                         </div>
                         <a href="javascript:void(0)" :class="{
-                            ' border-primary bg-primary text-white hover:bg-opacity-90':
+                            ' border-primary bg-primaryPurpleColor text-secondaryWhiteColor hover:bg-opacity-90':
                                 plan.name === 'Business',
                             'border-stroke bg-transparent text-primary hover:border-primary hover:bg-primary hover:text-white':
                                 plan.name !== 'Business'
