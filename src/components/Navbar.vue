@@ -1,9 +1,9 @@
 <template>
-  <header class="header sticky top-0 bg-white shadow-md flex items-center justify-between px-8 py-2 z-50">
+  <header class="header sticky top-0 shadow-md flex items-center justify-between px-8 py-2 z-50" style="background-color: var(--secondary-color);">
     <!-- logo -->
     <h1 class="w-3/12">
       <a href="/">
-        <img src="../assets/ODEONICLOGO.png" alt="logo" class="mx-auto inline-block max-w-[180px]"/>
+        <img src="../assets/odeoniclogo.svg" alt="logo" class="mx-auto inline-block max-w-[180px]"/>
       </a>
     </h1>
     <!-- navigation -->
@@ -15,11 +15,11 @@
         </li>
         <li
           class="p-4 border-b-2 border-purple-900 border-opacity-0 hover:border-opacity-100 hover:text-purple-900 duration-200 cursor-pointer">
-          <a href="">About</a>
+          <a href="">Generate</a>
         </li>
         <li
           class="p-4 border-b-2 border-purple-900 border-opacity-0 hover:border-opacity-100 hover:text-purple-900 duration-200 cursor-pointer">
-          <a href="">Generate</a>
+          <a href="">About</a>
         </li>
         <li
           class="p-4 border-b-2 border-purple-900 border-opacity-0 hover:border-opacity-100 hover:text-purple-900 duration-200 cursor-pointer">
