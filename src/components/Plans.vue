@@ -4,7 +4,7 @@ import { ref } from 'vue'
 const pricingPlans = ref([
     {
         name: 'Personal',
-        price: '$59',
+        price: '$5',
         description: 'Perfect for using in a personal website or a client project.',
         features: {
             users: '1 User',
@@ -20,7 +20,7 @@ const pricingPlans = ref([
     },
     {
         name: 'Business',
-        price: '$199',
+        price: '$20',
         description: 'Perfect for using in a Business website or a client project.',
         features: {
             users: '5 Users',
@@ -36,7 +36,7 @@ const pricingPlans = ref([
     },
     {
         name: 'Professional',
-        price: '$256',
+        price: '$40',
         description: 'Perfect for using in a Professional website or a client project.',
         features: {
             users: 'Unlimited Users',
@@ -64,8 +64,8 @@ const pricingPlans = ref([
                             Our Pricing Plan
                         </h2>
                         <p class="text-base text-body-color ">
-                            There are many variations of passages of Lorem Ipsum available but the majority have
-                            suffered alteration in some form.
+                            We offer a variety of plans to suit your needs and budget. Choose the plan that best fits
+                            your musical goals and start exploring everything our platform has to offer.
                         </p>
                     </div>
                 </div>
@@ -74,9 +74,9 @@ const pricingPlans = ref([
                 <div v-for="(plan, index) in pricingPlans" :key="index" class="w-full px-4 md:w-1/2 lg:w-1/3">
                     <div
                         class="relative z-10 mb-10 overflow-hidden rounded-[10px] border-2 border-stroke bg-secondaryWhiteColor py-10 px-8 shadow-pricing sm:p-12 lg:py-10 lg:px-6 xl:p-[50px]">
-                        <span class="mb-3 block text-lg font-semibold text-primary">{{ plan.name }}</span>
+                        <span class="mb-3 block text-lg font-semibold text-primaryPurpleColor">{{ plan.name }}</span>
                         <h2 class="mb-5 text-[42px] font-bold text-dark ">
-                            <span>{{ plan.price }}</span>
+                            <span class="text-primaryPurpleColor">{{ plan.price }}</span>
                             <span class="text-base font-medium text-body-color "> / month </span>
                         </h2>
                         <p class="mb-8 border-b border-stroke pb-8 text-base text-body-color ">
