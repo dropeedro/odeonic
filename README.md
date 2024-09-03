@@ -3,7 +3,7 @@
 <h3 align="center">ODEONIC MUSIC GENERATOR</h3>
 
   <p align="center">
-    project_description
+    ODEONIC MUSIC GENERATOR is an innovative platform for music creation using a Virtual MIDI. Designed for musicians of all levels and casual users, it offers an intuitive interface and adjustable parameters to generate unique melodies and harmonies without advanced technical knowledge. Explore and create music effortlessly with our accessible tool, tailored for everyone.
   </p>
 </div>
 
@@ -11,7 +11,7 @@
 ## About The Project
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following
+We offer an innovative platform for generating music with our Virtual MIDI. Designed for musicians of all levels and casual users, our service allows you to create unique melodies and harmonies intuitively, without the need for advanced technical knowledge.
 
 ### Contributors:
 
@@ -87,7 +87,7 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 [license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: https://imgur.com/BMms7n3.png
+[product-screenshot]: https://imgur.com/YtB5HO9.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
