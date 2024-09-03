@@ -10,18 +10,18 @@ import Midi from '../components/Midi.vue';
     </div>
   </section>
   <section>
-    <div id="aboutus" class="py-0 mb-5">
-      <div class="flex flex-col md:flex-row items-center justify-between">
-        <div class="md:w-1/2 px-4 md:px-12 text-primary">
-          <h1 class="text-3xl mb-4">About us</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A consequatur labore earum quae, ducimus sapiente
-            suscipit, odit atque ab error veniam officiis ex distinctio repellat. Qui a accusamus molestiae ipsam.</p>
-        </div>
-        <div class="md:w-1/2 relative overflow-hidden">
-          <img class="w-full h-auto object-cover"
-            src="https://myscena.org/wp-content/uploads/2021/10/Beethoven_X_Header-e1635204954120.jpg"
-            alt="A representation of Beethoven" />
-        </div>
+    <div class="w-full px-4">
+      <div class="mx-auto mb-[60px] max-w-[510px] text-center">
+        <h2 class="mb-3 text-3xl leading-[1.208] font-bold text-dark sm:text-4xl md:text-[40px]">
+          About Us
+        </h2>
+        <p class="text-base text-body-color text-center">We offer an innovative platform for generating music with our
+          Virtual MIDI. Designed for musicians of all levels and casual users, our service allows you to create unique
+          melodies and harmonies intuitively, without the need for advanced technical knowledge.
+        </p>
+      </div>
+      <div class="w-full overflow-hidden rounded-[10px]">
+        <img src="../assets/aboutusimage.jpg" alt="About Us" class="w-full object-cover">
       </div>
     </div>
   </section>
