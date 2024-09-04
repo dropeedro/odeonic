@@ -1,7 +1,7 @@
 <template>
   <div class="bg-secondaryWhiteColor min-h-screen flex items-start justify-center mt-12">
     <div class="bg-secondaryWhiteColor p-8 rounded-lg shadow-2xl w-96">
-      <h2 class="pt-8 text-3xl text-primaryPurpleColor font-bold mb-2">Welcome Back!</h2>
+      <h2 class="pt-8 text-3xl text-primaryPurpleColor font-bold mb-2">Login</h2>
       <p class="text-md text-primaryPurpleColor mb-6">Remember not to show your password to anyone!</p>
 
       <form @submit.prevent="handleLogin">
@@ -16,26 +16,37 @@
           <a href="/" class="text-sm text-primaryPurpleColor">You Forgot Your Password?</a>
         </div>
         <button type="submit"
-          class=" mb-2 w-full font-bold bg-primaryPurpleColor text-plusGrayColor py-2 rounded-md">Log
+          class="w-full bg-primaryPurpleColor text-secondaryWhiteColor py-2 rounded-md hover:bg-terciaryPurpleColor transition duration-300">Log
           in</button>
       </form>
       <div class="mt-2 text-center text-sm text-primaryPurpleColor">
         You can also log in with
       </div>
       <div class="mb-8 mt-2 flex justify-center space-x-4">
-        <a href="#" class="text-2xl"></a>
-        <a href="#" class="text-2xl">TK</a>
-        <a href="#" class="text-2xl">GO</a>
-        <a href="#" class="text-2xl">FB</a>
-        <a href="#" class="text-2xl">X</a>
+        <a href="#" class="text-2xl bg-plusGrayColor p-2 rounded-[4px]">
+          <img src="../assets/InstagramIcon.svg" alt="Instagram" class="w-8 h-8" />
+        </a>
+        <a href="#" class="text-2xl bg-plusGrayColor p-2 rounded-[4px]">
+          <img src="../assets/TiktokIcon.svg" alt="Tiktok" class="w-8 h-8" />
+        </a>
+        <a href="#" class="text-2xl bg-plusGrayColor p-2 rounded-[4px]">
+          <img src="../assets/XIcon.svg" alt="X" class="w-8 h-8" />
+        </a>
+        <a href="#" class="text-2xl bg-plusGrayColor p-2 rounded-[4px]">
+          <img src="../assets/FacebookIcon.svg" alt="Facebook" class="w-8 h-8" />
+        </a>
+        <a href="#" class="text-2xl bg-plusGrayColor p-2 rounded-[4px]">
+          <img src="../assets/GoogleIcon.svg" alt="Google" class="w-8 h-8" />
+        </a>
       </div>
       <div>
         <div class="mt-4 text-center text-sm text-primaryPurpleColor">
           You don't have an account?
         </div>
-        <button type="submit"
-          class="mb-1 w-full font-bold bg-plusGrayColor text-primaryPurpleColor py-2 rounded-md hover:bg-gray-300 transition duration-300">Register
-        </button>
+        <a href="/register"
+          class="mb-1 w-full font-bold bg-plusGrayColor text-primaryPurpleColor py-2 rounded-md block text-center hover:bg-gray-300 transition duration-300">
+          Register
+        </a>
       </div>
     </div>
   </div>

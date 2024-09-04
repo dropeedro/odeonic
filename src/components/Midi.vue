@@ -86,13 +86,15 @@
           </div>
           <h3 class="font-bold text-primaryPurpleColor mt-4 mb-1 text-lg">And that's not all</h3>
           <p class="text-sm text-primaryPurpleColor mb-4">Unlock more features when you create an account</p>
-          <button
-            class="bg-primaryPurpleColor text-secondaryWhiteColor py-4 px-4 rounded-md w-full mb-2 font-semibold">Create
-            a free Account</button>
-          <p class="text-sm text-center">
-            <a href="#" class="text-primaryPurpleColor">You already have an account?</a>
+          <a href="/register"
+            class="bg-primaryPurpleColor text-secondaryWhiteColor py-4 px-4 rounded-md w-full mb-2 font-semibold block text-center">
+            Create a free Account
+          </a>
+          <p class="text-sm text-center">You already have an account?
           </p>
-          <p class="text-lg text-center text-primaryPurpleColor font-semibold p-2">Log In</p>
+          <p class="text-lg text-center text-primaryPurpleColor font-semibold p-2">
+            <a href="/login" class="text-primaryPurpleColor">Log In</a>
+          </p>
         </div>
       </div>
     </div>
