@@ -1,17 +1,5 @@
 <!-- PROJECT LOGO -->
 <br />
-<h3 align="center">ODEONIC MUSIC GENERATOR</h3>
-
-  <p align="center">
-    ODEONIC MUSIC GENERATOR is an innovative platform for music creation using a Virtual MIDI. Designed for musicians of all levels and casual users, it offers an intuitive interface and adjustable parameters to generate unique melodies and harmonies without advanced technical knowledge. Explore and create music effortlessly with our accessible tool, tailored for everyone.
-  </p>
-</div>
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-We offer an innovative platform for generating music with our Virtual MIDI. Designed for musicians of all levels and casual users, our service allows you to create unique melodies and harmonies intuitively, without the need for advanced technical knowledge.
 
 ### Contributors:
 
