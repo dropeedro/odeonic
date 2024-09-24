@@ -21,3 +21,7 @@ body {
   background-color: var(--secondary-color);
   overflow-x: hidden;
 }
+
+html {
+  scroll-behavior: smooth;
+}

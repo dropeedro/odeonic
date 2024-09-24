@@ -33,22 +33,6 @@ const pricingPlans = ref([
         button: {
             text: 'Choose Business'
         }
-    },
-    {
-        name: 'Professional',
-        price: '$40',
-        description: 'Perfect for using in a Professional website or a client project.',
-        features: {
-            users: 'Unlimited Users',
-            components: 'All UI components',
-            access: 'Lifetime access',
-            updates: 'Free updates',
-            projects: 'Use on Unlimited project',
-            support: '12 Months support'
-        },
-        button: {
-            text: 'Choose Professional'
-        }
     }
 ])
 </script>
@@ -95,7 +79,7 @@ const pricingPlans = ref([
                         <a href="javascript:void(0)" :class="{
                             ' border-primary bg-primaryPurpleColor text-secondaryWhiteColor hover:bg-opacity-90':
                                 plan.name === 'Business',
-                            'border-stroke bg-transparent text-primary hover:border-primary hover:bg-primary hover:text-white':
+                            'border-stroke bg-transparent text-primary hover:border-primary hover:bg-primary hover:text-terciaryPurpleColor':
                                 plan.name !== 'Business'
                         }" class="block w-full rounded-md border p-3 text-center text-base font-medium transition">
                             {{ plan.button.text }}

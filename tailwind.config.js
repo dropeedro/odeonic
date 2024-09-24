@@ -9,7 +9,7 @@ module.exports = {
       colors: {
         primaryPurpleColor: '#82328b',
         secondaryWhiteColor: '#f9f9f9',
-        terciaryPurpleColor: '#4F4350',
+        terciaryPurpleColor: '#762D7E',
         plusGrayColor: '#D9D9D9',
       }
     },
