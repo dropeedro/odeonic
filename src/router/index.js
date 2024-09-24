@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import DefaultLayout from '../components/DefaultLayout.vue';
+import AdminLayout from '../components/AdminLayout.vue';
 import Home from  "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
+import AdminDashboard from "../views/admin/adminDashboard.vue";
 
 const routes = [
     {
@@ -25,6 +27,17 @@ const routes = [
           component: Register,
         }
       ]
+    },
+    {
+      path: '/Admin',
+      component: AdminLayout,
+      children: [
+        {
+          path: '/Admin',
+          name: 'AdminDashboard',
+          component: AdminDashboard,
+        }
+      ]
     }
   ];
   
@@ -34,3 +47,12 @@ const routes = [
   });
   
   export default router;
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });

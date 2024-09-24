@@ -33,22 +33,6 @@ const pricingPlans = ref([
         button: {
             text: 'Choose Business'
         }
-    },
-    {
-        name: 'Professional',
-        price: '$40',
-        description: 'Perfect for using in a Professional website or a client project.',
-        features: {
-            users: 'Unlimited Users',
-            components: 'All UI components',
-            access: 'Lifetime access',
-            updates: 'Free updates',
-            projects: 'Use on Unlimited project',
-            support: '12 Months support'
-        },
-        button: {
-            text: 'Choose Professional'
-        }
     }
 ])
 </script>
