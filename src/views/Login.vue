@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="bg-secondaryWhiteColor min-h-screen flex items-start justify-center mt-12">
     <div class="bg-secondaryWhiteColor p-8 rounded-lg shadow-2xl w-96">
       <h2 class="pt-8 text-3xl text-primaryPurpleColor font-bold mb-2">Login</h2>
@@ -67,4 +67,43 @@ export default {
     }
   }
 }
+</script> -->
+
+<template>
+  <div class="bg-secondaryWhiteColor min-h-screen flex items-start justify-center mt-12">
+    <div class="bg-secondaryWhiteColor p-8 rounded-lg shadow-2xl w-96">
+      <h2 class="pt-8 text-3xl text-primaryPurpleColor font-bold mb-2">Login</h2>
+      <p class="text-md text-primaryPurpleColor mb-6">Remember not to show your password to anyone!</p>
+
+      <!-- Botón para iniciar sesión con Keycloak -->
+      <div class="mt-4 flex justify-center">
+        <button
+          @click="loginWithKeycloak"
+          class="w-full bg-primaryPurpleColor text-secondaryWhiteColor py-2 rounded-md hover:bg-terciaryPurpleColor transition duration-300"
+        >
+          Login with Keycloak
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import keycloak from '../keycloak'; // Asegúrate de importar correctamente
+
+export default {
+  methods: {
+    loginWithKeycloak() {
+      // Iniciar Keycloak solo cuando el usuario haga clic en el botón
+      keycloak.init({ onLoad: 'login-required' })
+        .then(() => {
+          keycloak.login();
+        })
+        .catch((error) => {
+          console.error('Failed to initialize Keycloak', error);
+        });
+    },
+  },
+};
 </script>
+
