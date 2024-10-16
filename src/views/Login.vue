@@ -89,21 +89,55 @@ export default {
 </template>
 
 <script>
-import keycloak from '../keycloak'; // Asegúrate de importar correctamente
+// import keycloak from '../keycloak'; // Asegúrate de importar correctamente
+
+// export default {
+//   methods: {
+//     loginWithKeycloak() {
+//       // Iniciar Keycloak solo cuando el usuario haga clic en el botón
+//       keycloak.init({ onLoad: 'login-required' })
+//         .then(() => {
+//           keycloak.login();
+//         })
+//         .catch((error) => {
+//           console.error('Failed to initialize Keycloak', error);
+//         });
+//     },
+//   },
+// };
+import { keycloak, initKeycloak } from "../keycloak";
 
 export default {
+  // methods: {
+  //   async loginWithKeycloak() {
+  //     try {
+  //       // Asegúrate de que Keycloak esté inicializado
+  //       await initKeycloak();
+
+  //       // Luego intenta hacer el login
+  //       keycloak.login();
+  //     } catch (error) {
+  //       console.error("Error during Keycloak login:", error);
+  //     }
+  //   }
+  // }
   methods: {
-    loginWithKeycloak() {
-      // Iniciar Keycloak solo cuando el usuario haga clic en el botón
-      keycloak.init({ onLoad: 'login-required' })
-        .then(() => {
-          keycloak.login();
-        })
-        .catch((error) => {
-          console.error('Failed to initialize Keycloak', error);
-        });
-    },
-  },
+  loginWithKeycloak() {
+    initKeycloak()
+      .then(() => {
+        keycloak.login()
+          .then(() => {
+            this.$router.push('/Admin'); // Asegúrate de redirigir correctamente
+          })
+          .catch((error) => {
+            console.error("Error during Keycloak login", error);
+          });
+      })
+      .catch(error => {
+        console.error("Error during Keycloak initialization", error);
+      });
+  }
+}
 };
 </script>
 
