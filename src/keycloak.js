@@ -3,7 +3,7 @@ import Keycloak from 'keycloak-js';
 const keycloak = new Keycloak({
   url: 'http://localhost:8080',  // URL del servidor Keycloak
   realm: 'odeonic-app',          // Nombre del Realm
-  clientId: 'frontend',          // Client ID configurado en Keycloak
+  clientId: 'frontend',        // Client ID configurado en Keycloak
 });
 
 let isKeycloakInitialized = false; // Variable para rastrear el estado de inicialización
@@ -19,6 +19,8 @@ const initKeycloak = () => {
     keycloak.init({
       onLoad: 'check-sso', // Cambia esto si necesitas que inicie sesión al cargar
       checkLoginIframe: false,
+      silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html',
+      responseMode: 'query',  
     })
     .then((authenticated) => {
       if (authenticated) {
