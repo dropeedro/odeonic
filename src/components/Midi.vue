@@ -12,46 +12,53 @@
         </p>
       </div>
 
-      <div class="flex justify-between items-start space-x-4"> <!-- Añadido espacio entre divs -->
-
+      <div class="flex justify-between items-start space-x-4">
         <!-- GENERATE MUSIC -->
         <div class="bg-secondaryWhiteColor p-6 rounded-lg w-full max-w-md">
           <h2 class="text-lg font-semibold mb-2">What's your content?</h2>
-          <div class="flex items-center bg-gray-200 rounded-md mb-4">
-            <input type="text" value="Party" class="bg-transparent p-2 flex-grow" />
-            <button class="bg-primaryPurpleColor text-secondaryWhiteColor p-2 rounded-r-md">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
+          <div class="relative mb-4">
+            <select class="bg-white text-black p-2 flex-grow rounded-md w-full appearance-none outline-none"
+              style="outline: 2px solid #D9D9D9;">
+              <option value="Party">Party</option>
+              <option value="Relaxing">Relaxing</option>
+              <option value="Workout">Workout</option>
+              <option value="Rock">Rock</option>
+            </select>
+            <div class="absolute right-0.5 top-1/2 transform -translate-y-1/2 bg-primaryPurpleColor p-2 rounded">
+              <span class="text-white">&#9660;</span>
+            </div>
           </div>
 
           <h2 class="text-lg font-semibold mb-2">How much music?</h2>
-          <div class="flex items-center bg-gray-200 rounded-md mb-4">
-            <input type="text" value="30" class="bg-transparent p-2 w-16" />
-            <button class="bg-primaryPurpleColor text-secondaryWhiteColor p-2 rounded-md mx-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <span class="flex-grow">Seconds</span>
+          <div class="relative mb-4">
+            <select class="bg-white text-black p-2 flex-grow rounded-md w-full appearance-none outline-none"
+              style="outline: 2px solid #D9D9D9;">
+              <option value="30">30 seconds</option>
+              <option value="60">60 seconds</option>
+              <option value="120">120 seconds</option>
+            </select>
+            <div class="absolute right-0.5 top-1/2 transform -translate-y-1/2 bg-primaryPurpleColor p-2 rounded">
+              <span class="text-white">&#9660;</span>
+            </div>
           </div>
 
           <h2 class="text-lg font-semibold mb-4">Find your Groove</h2>
-          <div v-for="(item, index) in ['Chilled', 'Weird', 'Barbeque']" :key="index"
-            class="flex items-center justify-between mb-4">
-            <span>{{ item }}</span>
-            <input type="range" class="w-1/2" />
-            <span>{{ ['Wild', 'Formal', 'Dance'][index] }}</span>
+          <div v-for="(item, index) in grooves" :key="index" class="flex items-center justify-between mb-4">
+            <span>{{ item.label }}</span>
+            <input type="range" class="w-1/2" v-model="grooveValues[index]" :min="item.min" :max="item.max"
+              @input="handleGrooveChange(index)" />
+            <span>{{ item.value }}</span>
           </div>
 
+          <!-- Play button -->
           <h2 class="text-lg font-semibold mb-2">Do you want to hear a preview?</h2>
-          <button class="bg-primaryPurpleColor text-secondaryWhiteColor p-1 rounded-md w-full">
+          <button @click="playSongBasedOnParameters"
+            class="bg-primaryPurpleColor text-secondaryWhiteColor p-1 rounded-md w-full">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              <path v-if="isPlaying" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10 9v6m4-6v6" />
+              <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -90,8 +97,7 @@
             class="bg-primaryPurpleColor text-secondaryWhiteColor py-4 px-4 rounded-md w-full mb-2 font-semibold block text-center">
             Create a free Account
           </a>
-          <p class="text-sm text-center">You already have an account?
-          </p>
+          <p class="text-sm text-center">You already have an account?</p>
           <p class="text-lg text-center text-primaryPurpleColor font-semibold p-2">
             <a href="/login" class="text-primaryPurpleColor">Log In</a>
           </p>
@@ -103,6 +109,68 @@
 
 <script>
 export default {
-  name: 'OdeonicInterface'
-}
+  name: 'OdeonicInterface',
+  data() {
+    return {
+      grooveValues: [50, 50, 50],
+      selectedContent: 'Party',
+      selectedDuration: '30',
+      audio: null,
+      isPlaying: false,
+      grooves: [
+        { label: 'Chilled', min: 0, max: 100, value: 'Wild' },
+        { label: 'Weird', min: 0, max: 100, value: 'Formal' },
+        { label: 'Barbeque', min: 0, max: 100, value: 'Dance' },
+      ],
+    };
+  },
+  methods: {
+    handleGrooveChange(index) {
+      console.log(this.grooveValues[index]);
+    },
+    playSongBasedOnParameters() {
+      const [param1, param2, param3] = this.grooveValues;
+
+      // Limpiar la canción anterior si hay una nueva reproducción
+      if (this.audio) {
+        this.audio.pause();
+        this.audio.currentTime = 0;
+      }
+
+      // Verificar los valores específicos y asignar la canción correspondiente
+      const tolerance = 10;
+
+      if (
+        Math.abs(param1 - 70) <= tolerance &&
+        Math.abs(param2 - 50) <= tolerance &&
+        Math.abs(param3 - 20) <= tolerance
+      ) {
+        this.audio = new Audio('src/assets/songs/song1.mp3');
+      } else if (
+        Math.abs(param1 - 10) <= tolerance &&
+        Math.abs(param2 - 100) <= tolerance &&
+        Math.abs(param3 - 50) <= tolerance
+      ) {
+        this.audio = new Audio('src/assets/songs/song2.mp3');
+      } else if (
+        Math.abs(param1 - 20) <= tolerance &&
+        Math.abs(param2 - 80) <= tolerance &&
+        Math.abs(param3 - 10) <= tolerance
+      ) {
+        this.audio = new Audio('src/assets/songs/song3.mp3');
+      } else {
+        this.audio = new Audio('src/assets/songs/default.mp3');
+      }
+
+      // Alternar el estado de reproducción
+      if (this.isPlaying) {
+        this.audio.pause();
+        this.isPlaying = false;
+      } else {
+        this.audio.play();
+        this.isPlaying = true;
+      }
+    },
+  },
+};
 </script>
