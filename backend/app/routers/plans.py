@@ -1,17 +1,21 @@
 from fastapi import APIRouter, HTTPException
-from app.models.plan import PlanCreate, PlanResponse
-from app.db.plan_crud import create_plan, get_plan_by_id
+from app.models.plan import Plan
+from app.services.plan_service import PlanService
 
 router = APIRouter()
 
-@router.post("/plans", response_model=PlanResponse)
-async def create_new_plan(plan: PlanCreate):
-    plan_id = create_plan(plan.dict())
-    return PlanResponse(id=plan_id, **plan.dict())
+@router.get("/", response_model=list[Plan])
+async def get_all_plans():
+    return PlanService.get_all_plans()
 
-@router.get("/plans/{plan_id}", response_model=PlanResponse)
-async def read_plan(plan_id: str):
-    plan = get_plan_by_id(plan_id)
-    if not plan:
-        raise HTTPException(status_code=404, detail="El plan no existe")
-    return plan
+@router.post("/", response_model=Plan)
+async def create_plan(plan: Plan):
+    return PlanService.create_plan(plan)
+
+@router.put("/{plan_id}", response_model=Plan)
+async def update_plan(plan_id: str, plan: Plan):
+    return PlanService.update_plan(plan_id, plan)
+
+@router.delete("/{plan_id}")
+async def delete_plan(plan_id: str):
+    return PlanService.delete_plan(plan_id)

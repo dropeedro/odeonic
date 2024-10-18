@@ -1,81 +1,52 @@
 import { createRouter, createWebHistory } from "vue-router";
 import DefaultLayout from '../components/DefaultLayout.vue';
 import AdminLayout from '../components/AdminLayout.vue';
-import Home from  "../views/Home.vue";
+import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
-import AdminDashboard from "../views/Admin/adminDashboard.vue";
 import Success from "../views/Success.vue";
-import { keycloak } from '../keycloak'; 
+import DashboardContent from "../views/Admin/DashboardContent.vue";
+import PlanManagement from "../views/Admin/PlanManagement.vue";
+import UserManagement from "../views/Admin/UserManagement.vue";
+import { keycloak } from '../keycloak';
 
 const routes = [
     {
-      path: '/',
-      component: DefaultLayout,
-      children: [
-        {
-          path: '',
-          name: 'Home',
-          component: Home,
-        },
-        {
-          path: 'login',
-          name: 'Login',
-          component: Login,
-        },
-        {
-          path: 'register',
-          name: 'Register',
-          component: Register,
-        },
-        {
-          path: 'success', 
-          name: 'Success',
-          component: Success,
-        }
-      ]
+        path: '/',
+        component: DefaultLayout,
+        children: [
+            { path: '', name: 'Home', component: Home },
+            { path: 'login', name: 'Login', component: Login },
+            { path: 'register', name: 'Register', component: Register },
+            { path: 'success', name: 'Success', component: Success }
+        ]
     },
     {
-      path: '/Admin',
-      component: AdminLayout,
-      children: [
-        {
-          path: '', 
-          name: 'AdminDashboard',
-          component: AdminDashboard,
-          meta: { requiresAuth: true },
-        }
-      ]
+        path: '/admin',
+        component: AdminLayout,
+        children: [
+            { path: '', name: 'AdminDashboard', component: DashboardContent, meta: { requiresAuth: true }},
+            { path: 'plans', name: 'PlanManagement', component: PlanManagement, meta: { requiresAuth: true }},
+            { path: 'users', name: 'UserManagement', component: UserManagement, meta: { requiresAuth: true }}
+        ]
     }
 ];
-  
+
 const router = createRouter({
     history: createWebHistory(),
     routes,
 });
 
 router.beforeEach((to, from, next) => {
-  // Verifica si la ruta requiere autenticación
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-      // Verifica si el usuario está autenticado con Keycloak
-      if (keycloak.authenticated) {
-          next();  // Usuario autenticado, permite el acceso
-      } else {
-          // Redirige al login si no está autenticado
-          next('/login');
-      }
-  } else {
-      next();  // Si la ruta no requiere autenticación, permite el acceso
-  }
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (keycloak.authenticated) {
+            next();
+        } else {
+            keycloak.login();
+        }
+    } else {
+        next();
+    }
 });
-  
-export default router;
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    document.querySelector(this.getAttribute('href')).scrollIntoView({
-      behavior: 'smooth'
-    });
-  });
-});
+export default router;
