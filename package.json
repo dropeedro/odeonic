@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^4.8.0",
     "keycloak-js": "^26.0.0",
     "primeicons": "^7.0.0",
     "vue": "^3.4.31",

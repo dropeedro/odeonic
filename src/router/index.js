@@ -4,8 +4,9 @@ import AdminLayout from '../components/AdminLayout.vue';
 import Home from  "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
-import AdminDashboard from "../views/admin/adminDashboard.vue";
-import { keycloak } from '../keycloak'; // Asegúrate de que la ruta sea correcta
+import AdminDashboard from "../views/Admin/adminDashboard.vue";
+import Success from "../views/Success.vue";
+import { keycloak } from '../keycloak'; 
 
 const routes = [
     {
@@ -26,6 +27,11 @@ const routes = [
           path: 'register',
           name: 'Register',
           component: Register,
+        },
+        {
+          path: 'success', 
+          name: 'Success',
+          component: Success,
         }
       ]
     },
