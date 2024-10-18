@@ -69,7 +69,7 @@
         <!-- SHARE MUSIC -->
         <div class="bg-secondaryWhiteColor p-7 rounded-lg shadow-2xl w-full max-w-md">
           <h2 class="text-lg font-bold text-primaryPurpleColor mb-2">Like it? Keep it!</h2>
-          <button class="bg-gray-200 p-2 rounded-md mb-4">
+          <button @click="redirectToCheckout" class="bg-gray-200 p-2 rounded-md mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -108,7 +108,15 @@
 </template>
 
 <script>
+
+import PaymentButton from './PaymentButton.vue';
+import { loadStripe } from '@stripe/stripe-js';
+
+
 export default {
+  components:{
+    PaymentButton
+  },
   name: 'OdeonicInterface',
   data() {
     return {
@@ -171,6 +179,77 @@ export default {
         this.isPlaying = true;
       }
     },
-  },
+    // async redirectToCheckout() {
+    //   // Cargar la clave pública de Stripe
+    //   const stripe = await loadStripe('pk_test_51QBHvAGa2SYBUggvrPgqC8kSuy3yo9ZISsFK49FSExZeC185kj6brXyzhjJn9b9iBg2TSbHPp8Mv66CVNJrNdfeS00whcWaAYC');
+
+    //   // Hacer una solicitud al backend para crear una sesión de pago
+    //   const response = await fetch('http://localhost:8000/stripe/create-checkout-session', {
+    //     method: 'POST',
+    //   });
+
+    //   if (!response.ok) {
+    //     const error = await response.json();
+    //     console.error('Error al crear la sesión de pago:', error);
+    //     return;
+    //   }
+
+    //   const { url } = await response.json();
+
+    //   // Redirigir al usuario a la página de pago de Stripe
+    //   window.location.href = url; // Cambia esto para redirigir a la URL de Stripe
+    // },
+    async redirectToCheckout() {
+      const stripe = await loadStripe('pk_test_51QBHvAGa2SYBUggvrPgqC8kSuy3yo9ZISsFK49FSExZeC185kj6brXyzhjJn9b9iBg2TSbHPp8Mv66CVNJrNdfeS00whcWaAYC');
+
+      // Determinar cuál canción se debe enviar basado en la lógica de tu app
+      let songId;
+      const [param1, param2, param3] = this.grooveValues;
+      const tolerance = 10;
+
+      if (
+        Math.abs(param1 - 70) <= tolerance &&
+        Math.abs(param2 - 50) <= tolerance &&
+        Math.abs(param3 - 20) <= tolerance
+      ) {
+        songId = 'song1';
+      } else if (
+        Math.abs(param1 - 10) <= tolerance &&
+        Math.abs(param2 - 100) <= tolerance &&
+        Math.abs(param3 - 50) <= tolerance
+      ) {
+        songId = 'song2';
+      } else if (
+        Math.abs(param1 - 20) <= tolerance &&
+        Math.abs(param2 - 80) <= tolerance &&
+        Math.abs(param3 - 10) <= tolerance
+      ) {
+        songId = 'song3';
+      } else {
+        songId = 'default';
+      }
+
+      // Enviar el ID de la canción seleccionada al backend
+      const response = await fetch('http://localhost:8000/stripe/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ song_id: songId }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        console.error('Error al crear la sesión de pago:', error);
+        return;
+      }
+
+      const { url } = await response.json();
+
+      // Redirigir al usuario a la página de pago de Stripe
+      window.location.href = url;
+    },
+
+  }
 };
 </script>

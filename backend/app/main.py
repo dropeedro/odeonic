@@ -1,114 +1,15 @@
-# from fastapi import FastAPI
-# from app.routers import users, plans, secure_data
-# from fastapi import FastAPI, Depends, HTTPException, status
-# from fastapi.security import OAuth2PasswordBearer
-# from app.auth.keycloak import verify_token
-
-# app = FastAPI()
-
-# # Incluir las rutas
-# app.include_router(users.router)
-# app.include_router(plans.router)
-# app.include_router(secure_data.router)
-
-
-# oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-# # Middleware para verificar el token en cada request protegido
-# async def keycloak_auth(token: str = Depends(oauth2_scheme)):
-#     try:
-#         payload = verify_token(token)
-#         return payload  # Retorna los datos del token si es válido
-#     except ValueError as e:
-#         raise HTTPException(
-#             status_code=status.HTTP_401_UNAUTHORIZED,
-#             detail="Invalid or expired token",
-#             headers={"WWW-Authenticate": "Bearer"},
-#         )
-
-# # Ejemplo de ruta protegida
-# @app.get("/protected")
-# async def protected_route(user_data: dict = Depends(keycloak_auth)):
-#     return {"message": "Welcome to a protected route!", "user": user_data}
-
-# from fastapi import FastAPI, HTTPException, Depends
-# from fastapi.middleware.cors import CORSMiddleware
-# from fastapi.security import OAuth2PasswordBearer
-# from app.models.user import UserCreate, UserResponse, create_user
-# from app.routers import users, plans, secure_data
-# from app.auth.keycloak import verify_token
-# from .keycloak_routes import router as keycloak_router
-
-# app = FastAPI()
-
-# # Configuración de CORS
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["http://localhost:5173"],  # Cambia esto si tu frontend se sirve desde otro origen
-#     allow_credentials=True,
-#     allow_methods=["*"],  # Permite todos los métodos (GET, POST, etc.)
-#     allow_headers=["*"],  # Permite todos los encabezados
-# )
-
-# oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-# # Middleware para verificar el token en cada request protegido
-# async def keycloak_auth(token: str = Depends(oauth2_scheme)):
-#     try:
-#         payload = verify_token(token)
-#         return payload  # Retorna los datos del token si es válido
-#     except ValueError:
-#         raise HTTPException(
-#             status_code=401,
-#             detail="Invalid or expired token",
-#             headers={"WWW-Authenticate": "Bearer"},
-#         )
-
-# @app.get("/")
-# async def root():
-#     return {"message": "Hello World"}
-
-# @app.post("/users", response_model=UserResponse)
-# async def register_user(user: UserCreate):
-#     # Lógica de registro de usuario
-#     try:
-#         return create_user(user)  # Llama a la función que inserta el usuario
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=str(e))  # Manejo de errores
-
-# # Ejemplo de ruta protegida
-# @app.get("/protected")
-# async def protected_route(user_data: dict = Depends(keycloak_auth)):
-#     return {"message": "Welcome to a protected route!", "user": user_data}
-
-# # Incluir las rutas
-# app.include_router(users.router)
-# app.include_router(plans.router)
-# app.include_router(secure_data.router)
-
-# # Montar el router de Keycloak
-# app.include_router(keycloak_router, prefix="/keycloak")
-
-# from fastapi import FastAPI, Depends
-# from fastapi.security import OAuth2PasswordRequestForm
-
-# app = FastAPI()
-
-# @app.post("/token")
-# async def login(form_data: OAuth2PasswordRequestForm = Depends()):
-#     # Aquí iría tu lógica de autenticación
-#     return {"access_token": "token", "token_type": "bearer"}
-
-
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel, EmailStr
 from pymongo import MongoClient
 import bcrypt
-from app.routers import users, plans, secure_data
+from app.routers import users, plans, secure_data, stripe as stripe_router
 from app.auth.keycloak import verify_token
 from app.keycloak_routes import router as keycloak_router
+import stripe
+from dotenv import load_dotenv
+import os
 
 app = FastAPI()
 
@@ -205,6 +106,7 @@ async def protected_route(user_data: dict = Depends(keycloak_auth)):
 app.include_router(users.router)
 app.include_router(plans.router)
 app.include_router(secure_data.router)
+app.include_router(stripe_router.router, prefix="/stripe")
 app.include_router(keycloak_router, prefix="/keycloak")
 
 # Ruta de token
@@ -227,3 +129,34 @@ def test_insert_user():
     except Exception as e:
         return {"error": str(e)}
 
+## STRIPE
+
+
+# load_dotenv()
+# stripe.api_key = os.getenv("STRIPE_API_KEY")
+
+
+# @app.post("/create-checkout-session")
+# async def create_checkout_session():
+#     try:
+#         session = stripe.checkout.Session.create(
+#             payment_method_types=['card'],
+#             line_items=[{
+#                 'price_data': {
+#                     'currency': 'usd',
+#                     'product_data': {
+#                         'name': 'canción',
+#                     },
+#                     'unit_amount': 100,  # Precio en centavos (5000 = $50.00)
+#                 },
+#                 'quantity': 1,
+#             }],
+#             mode='payment',
+#             success_url="https://tu-dominio.com/success",
+#             cancel_url="https://tu-dominio.com/cancel",
+#         )
+#         return {"url": session.url}
+#     except Exception as e:
+#         raise HTTPException(status_code=400, detail=str(e))
+
+# print("Stripe API Key:", stripe.api_key)
