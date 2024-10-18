@@ -4,7 +4,7 @@ import AdminLayout from '../components/AdminLayout.vue';
 import Home from  "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
-import AdminDashboard from "../views/Admin/AdminDashboard.vue";
+import AdminDashboard from "../views/admin/adminDashboard.vue";
 import { keycloak } from '../keycloak'; // Asegúrate de que la ruta sea correcta
 
 const routes = [
