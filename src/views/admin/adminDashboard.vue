@@ -11,7 +11,7 @@
           </h2>
           <p class="text-base text-body-color ">
             We offer a variety of plans to suit your needs and budget. Choose the plan that best fits
-            your musical goals and start exploring everything our platform has to offer.
+            your musical goals and start exploring everything our platform has to offer. #prueba#
           </p>
         </div>
       </div>
