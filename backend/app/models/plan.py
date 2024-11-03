@@ -1,12 +1,10 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
-class PlanCreate(BaseModel):
+class Plan(BaseModel):
+    id: str | None = None
     name: str
-    description: str
     price: float
-
-class PlanResponse(PlanCreate):
-    id: str
+    description: str
 
     class Config:
         orm_mode = True

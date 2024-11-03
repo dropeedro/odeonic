@@ -1,15 +1,13 @@
 from pydantic import BaseModel, EmailStr
-from typing import Optional
+from app.database import db  # Asegúrate de que la conexión a la base de datos esté bien configurada
 
 class UserCreate(BaseModel):
     email: EmailStr
-    password: str
-    oauth_provider: Optional[str] = None  # Google, Facebook, etc.
-    oauth_id: Optional[str] = None        # ID del OAuth
+    password: str | None = None  # Contraseña opcional para OAuth
+    oauth_provider: str | None = None
+    oauth_id: str | None = None
 
 class UserResponse(BaseModel):
     id: str
     email: EmailStr
-
-    class Config:
-        orm_mode = True
+    roles: list[str] = ["user"]  # Asignar rol predeterminado
