@@ -127,7 +127,7 @@ export default {
       .then(() => {
         keycloak.login()
           .then(() => {
-            this.$router.push('/Admin'); // Asegúrate de redirigir correctamente
+            this.$router.push('/Admin');
           })
           .catch((error) => {
             console.error("Error during Keycloak login", error);
