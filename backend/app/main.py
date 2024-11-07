@@ -162,7 +162,6 @@
 
 # # print("Stripe API Key:", stripe.api_key)
 
-
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer
@@ -277,6 +276,7 @@ app.include_router(keycloak_router, prefix="/keycloak", tags=["Keycloak"])
 async def login(form_data: OAuth2PasswordBearer = Depends()):
     return {"access_token": "token", "token_type": "bearer"}
 
+# Endpoint para insertar un usuario de prueba
 @app.post("/test-insert-user")
 def test_insert_user():
     user_data = {
