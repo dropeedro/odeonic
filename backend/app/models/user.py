@@ -1,11 +1,12 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, EmailStr
 
-class Usuario(BaseModel):
-    id: str | None = None
-    email: str
-    password: str
+class UserCreate(BaseModel):
+    email: EmailStr
+    password: str | None = None
     oauth_provider: str | None = None
     oauth_id: str | None = None
 
-    class Config:
-        orm_mode = True
+class UserResponse(BaseModel):
+    id: str
+    email: EmailStr
+    roles: list[str] = ["user"]  # Asignar rol predeterminado
