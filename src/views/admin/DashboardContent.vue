@@ -1,8 +1,7 @@
 <template>
   <div class="admin-dashboard">
-    <AdminSidebar />
     <div class="dashboard-content">
-      <h1>Admin Dashboard</h1>
+      <h1 class="text-3xl font-bold mb-6">Admin Dashboard</h1>
       <div class="charts">
         <div class="chart-container">
           <canvas id="userChart"></canvas>
@@ -20,15 +19,12 @@
 
 <script>
 import { Chart, registerables } from 'chart.js';
-import AdminSidebar from '../Admin/AdminSidebar.vue';
+
 
 Chart.register(...registerables);
 
 export default {
   name: "DashboardContent",
-  components: {
-    AdminSidebar,
-  },
   mounted() {
     // Ejemplo de gráfico para usuarios
     new Chart(document.getElementById("userChart"), {
