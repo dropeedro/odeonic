@@ -171,6 +171,8 @@ import bcrypt
 from app.routers import users, plans, secure_data, stripe as stripe_router
 from app.auth.keycloak import verify_token
 from app.keycloak_routes import router as keycloak_router
+from bson.json_util import dumps
+import json
 import os
 
 app = FastAPI()
@@ -204,6 +206,7 @@ async def keycloak_auth(token: str = Depends(oauth2_scheme)):
 # Conexión a MongoDB
 MONGODB_URI = "mongodb+srv://pedro:1234@cluster0.n22vyn8.mongodb.net/odeonic_test?retryWrites=true&w=majority"
 client = MongoClient(MONGODB_URI)
+
 
 try:
     db = client['odeonic_test']
@@ -291,3 +294,14 @@ def test_insert_user():
         return {"message": f"Usuario insertado con ID: {result.inserted_id}"}
     except Exception as e:
         return {"error": str(e)}
+    # Ruta para obtener todos los usuarios
+    
+# Ruta para obtener todos los usuarios de la colección "users"
+@app.get("/usuarios", response_model=list[UserResponse])
+async def listar_usuarios():
+    try:
+        usuarios = db.users.find()
+        # Formatear la respuesta para devolver solo `id` y `email`
+        return [UserResponse(id=str(user["_id"]), email=user["email"]) for user in usuarios]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al obtener usuarios: {str(e)}")

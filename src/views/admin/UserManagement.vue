@@ -1,78 +1,52 @@
 <template>
-  <div class="admin-dashboard">
-<<<<<<< HEAD
-    <AdminSidebar />
-    <div class="dashboard-content">
-      <h1 class="text-2xl font-bold mb-6">User Management</h1>
-      <div class="crud-section">
-        <!-- Aquí puedes añadir el listado y gestión de usuarios -->
-        <div class="crud-card">
-          <h2 class="text-lg font-semibold">Listar y Gestionar Usuarios</h2>
-          <p class="text-base">
-            Administra la lista de usuarios registrados en tu plataforma.
-          </p>
-          <button class="btn-primary mt-4">Agregar Nuevo Usuario</button>
-=======
-    <div class="dashboard-content">
-      <div class="user-management">
-        <div class="section-header">
-          <h1 class="text-3xl font-bold mb-6 pt-10 text-SecondaryColor">
-            User Management
-          </h1>
->>>>>>> 2d30257017b0b8ebfcd3def135763c7321c1846a
-        </div>
-      </div>
-    </div>
+  <div>
+    <h2>Lista de Usuarios</h2>
+    <ul v-if="usuarios.length > 0">
+      <li v-for="usuario in usuarios" :key="usuario.id">
+        {{ usuario.email }}
+      </li>
+    </ul>
+    <p v-else>No hay usuarios registrados.</p>
   </div>
 </template>
-<<<<<<< HEAD
 
 <script>
-import AdminSidebar from '../Admin/AdminSidebar.vue';
+import axios from 'axios'
 
 export default {
-  name: "UserManagement",
-  components: {
-    AdminSidebar,
+  name: 'UserList',
+  data() {
+    return {
+      usuarios: [] // Almacena los usuarios obtenidos del backend
+    }
+  },
+  methods: {
+    async fetchUsuarios() {
+      try {
+        // Solicitud al backend para obtener la lista de usuarios
+        const response = await axios.get('http://localhost:8000/usuarios')
+        this.usuarios = response.data
+      } catch (error) {
+        console.error("Error al obtener usuarios:", error)
+      }
+    }
+  },
+  mounted() {
+    // Llamada al método cuando se monta el componente
+    this.fetchUsuarios()
   }
-};
+}
 </script>
 
 <style scoped>
-.admin-dashboard {
-  display: flex;
+h2 {
+  color: #333;
 }
-
-.dashboard-content {
-  padding: 20px;
-  flex-grow: 1;
+ul {
+  list-style-type: none;
+  padding: 0;
 }
-
-.crud-section {
-  display: grid;
-  gap: 20px;
-}
-
-.crud-card {
-  padding: 20px;
-  background-color: #f8f8f8;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.btn-primary {
-  padding: 10px 20px;
-  background-color: #6b5b95;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.btn-primary:hover {
-  background-color: #5a4a82;
+li {
+  margin: 5px 0;
 }
 </style>
-=======
->>>>>>> 2d30257017b0b8ebfcd3def135763c7321c1846a
