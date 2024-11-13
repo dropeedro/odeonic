@@ -1,52 +1,120 @@
 <template>
-  <div>
-    <h2>Lista de Usuarios</h2>
-    <ul v-if="usuarios.length > 0">
-      <li v-for="usuario in usuarios" :key="usuario.id">
-        {{ usuario.email }}
-      </li>
-    </ul>
-    <p v-else>No hay usuarios registrados.</p>
+  <div class="user-list-container">
+    <h1>Usuarios</h1>
+    <div class="user-list">
+      <div v-for="usuario in usuarios" :key="usuario._id" class="user-item">
+        <span class="user-email">{{ usuario.email }}</span>
+        <button 
+          class="toggle-btn" 
+          :class="{'blocked': usuario.isBlocked}"
+          @click="toggleBloquear(usuario._id, usuario.isBlocked)">
+          {{ usuario.isBlocked ? "Desbloquear" : "Bloquear" }}
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
-  name: 'UserList',
   data() {
     return {
-      usuarios: [] // Almacena los usuarios obtenidos del backend
-    }
+      usuarios: []
+    };
+  },
+  async created() {
+    await this.fetchUsuarios();
   },
   methods: {
     async fetchUsuarios() {
       try {
-        // Solicitud al backend para obtener la lista de usuarios
-        const response = await axios.get('http://localhost:8000/usuarios')
-        this.usuarios = response.data
+        const response = await axios.get('http://localhost:8000/usuarios');
+        this.usuarios = response.data;
       } catch (error) {
-        console.error("Error al obtener usuarios:", error)
+        console.error("Error al obtener usuarios:", error);
+      }
+    },
+    async toggleBloquear(userId, currentStatus) {
+      try {
+        const response = await axios.put(`http://localhost:8000/usuarios/${userId}/bloquear`);
+        
+        // Actualiza el estado de isBlocked en la lista local
+        const usuario = this.usuarios.find(u => u._id === userId);
+        if (usuario) {
+          usuario.isBlocked = response.data.isBlocked;
+        }
+      } catch (error) {
+        console.error("Error al bloquear/desbloquear usuario:", error);
       }
     }
-  },
-  mounted() {
-    // Llamada al método cuando se monta el componente
-    this.fetchUsuarios()
   }
 }
 </script>
 
 <style scoped>
-h2 {
+.user-list-container {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
   color: #333;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
-li {
-  margin: 5px 0;
+
+.user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  padding: 10px;
+  background-color: #f4f4f9;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.user-item:hover {
+  transform: translateY(-5px);
+}
+
+.user-email {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #555;
+}
+
+.toggle-btn {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.toggle-btn:hover {
+  background-color: #45a049;
+}
+
+.toggle-btn.blocked {
+  background-color: #f44336;
+}
+
+.toggle-btn.blocked:hover {
+  background-color: #d32f2f;
 }
 </style>
