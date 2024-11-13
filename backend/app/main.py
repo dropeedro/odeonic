@@ -174,6 +174,7 @@ from app.keycloak_routes import router as keycloak_router
 from bson.json_util import dumps
 import json
 import os
+from bson import ObjectId
 
 app = FastAPI()
 
@@ -295,7 +296,7 @@ def test_insert_user():
     except Exception as e:
         return {"error": str(e)}
     # Ruta para obtener todos los usuarios
-    
+
 # Ruta para obtener todos los usuarios de la colección "users"
 @app.get("/usuarios", response_model=list[UserResponse])
 async def listar_usuarios():
@@ -305,3 +306,25 @@ async def listar_usuarios():
         return [UserResponse(id=str(user["_id"]), email=user["email"]) for user in usuarios]
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error al obtener usuarios: {str(e)}")
+
+from fastapi import Path
+
+# Ruta para bloquear o desbloquear un usuario
+@app.put("/usuarios/{user_id}/bloquear")
+async def bloquear_usuario(user_id: str):
+    # Buscar el usuario en la base de datos
+    user = db.users.find_one({"_id": user_id})
+    
+    if not user:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+    # Cambiar el estado de bloqueo (toggle)
+    is_blocked = not user.get("isBlocked", False)
+    
+    # Actualizar el campo 'isBlocked' en la base de datos
+    result = db.users.update_one({"_id": user_id}, {"$set": {"isBlocked": is_blocked}})
+    
+    if result.modified_count == 1:
+        return {"isBlocked": is_blocked}
+    else:
+        raise HTTPException(status_code=500, detail="Error al actualizar el usuario")

@@ -7,7 +7,7 @@
         <button 
           class="toggle-btn" 
           :class="{'blocked': usuario.isBlocked}"
-          @click="toggleBloquear(usuario._id, usuario.isBlocked)">
+          @click="toggleBloquear(usuario)">
           {{ usuario.isBlocked ? "Desbloquear" : "Bloquear" }}
         </button>
       </div>
@@ -31,23 +31,18 @@ export default {
     async fetchUsuarios() {
       try {
         const response = await axios.get('http://localhost:8000/usuarios');
-        this.usuarios = response.data;
+        // Cargar usuarios desde la base de datos y agregar el campo isBlocked localmente
+        this.usuarios = response.data.map(usuario => ({
+          ...usuario,
+          isBlocked: false // Inicialmente todos los usuarios están desbloqueados localmente
+        }));
       } catch (error) {
         console.error("Error al obtener usuarios:", error);
       }
     },
-    async toggleBloquear(userId, currentStatus) {
-      try {
-        const response = await axios.put(`http://localhost:8000/usuarios/${userId}/bloquear`);
-        
-        // Actualiza el estado de isBlocked en la lista local
-        const usuario = this.usuarios.find(u => u._id === userId);
-        if (usuario) {
-          usuario.isBlocked = response.data.isBlocked;
-        }
-      } catch (error) {
-        console.error("Error al bloquear/desbloquear usuario:", error);
-      }
+    toggleBloquear(usuario) {
+      // Cambiar el estado de isBlocked para el usuario especificado solo en el frontend
+      usuario.isBlocked = !usuario.isBlocked;
     }
   }
 }
