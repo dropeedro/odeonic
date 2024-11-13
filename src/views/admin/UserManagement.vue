@@ -1,5 +1,6 @@
 <template>
   <div class="admin-dashboard">
+<<<<<<< HEAD
     <AdminSidebar />
     <div class="dashboard-content">
       <h1 class="text-2xl font-bold mb-6">User Management</h1>
@@ -11,11 +12,20 @@
             Administra la lista de usuarios registrados en tu plataforma.
           </p>
           <button class="btn-primary mt-4">Agregar Nuevo Usuario</button>
+=======
+    <div class="dashboard-content">
+      <div class="user-management">
+        <div class="section-header">
+          <h1 class="text-3xl font-bold mb-6 pt-10 text-SecondaryColor">
+            User Management
+          </h1>
+>>>>>>> 2d30257017b0b8ebfcd3def135763c7321c1846a
         </div>
       </div>
     </div>
   </div>
 </template>
+<<<<<<< HEAD
 
 <script>
 import AdminSidebar from '../Admin/AdminSidebar.vue';
@@ -64,3 +74,5 @@ export default {
   background-color: #5a4a82;
 }
 </style>
+=======
+>>>>>>> 2d30257017b0b8ebfcd3def135763c7321c1846a
