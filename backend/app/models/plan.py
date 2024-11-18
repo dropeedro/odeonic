@@ -5,6 +5,7 @@ class Plan(BaseModel):
     name: str
     price: float
     description: str
+    features: str  
 
     class Config:
         orm_mode = True

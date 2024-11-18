@@ -5,9 +5,9 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Success from "../views/Success.vue";
-import DashboardContent from "../views/admin/DashboardContent.vue";
-import PlanManagement from "../views/admin/PlanManagement.vue";
-import UserManagement from "../views/admin/UserManagement.vue";
+import DashboardContent from "../views/Admin/DashboardContent.vue";
+import PlanManagement from "../views/Admin/PlanManagement.vue";
+import UserManagement from "../views/Admin/UserManagement.vue";
 import { keycloak } from '../keycloak';
 
 const routes = [
