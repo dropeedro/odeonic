@@ -31,27 +31,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-h1 {
-  margin-bottom: 20px;
-}
-
-p {
-  font-size: 18px;
-  margin-bottom: 20px;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #2d2d2d;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #3a3a3a;
-}
-</style>

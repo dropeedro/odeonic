@@ -1,18 +1,22 @@
 <template>
   <div class="admin-dashboard">
-    <div class="dashboard-content">
+    <div class="dashboard-content px-4">
       <div class="section-header">
-        <h1 class="text-3xl font-bold mb-6 pt-10 text-SecondaryColor">
+        <h1 class="text-3xl font-bold mb-6 pt-10 text-SecondaryColor text-left">
           Admin Dashboard
         </h1>
-        <div class="grid grid-cols-3 gap-5"> <!-- 3 columnas en el grid -->
-          <div class="w-full bg-gray-100 p-4 rounded-lg shadow-md">
+        <!-- Grid responsivo -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- Card 1 -->
+          <div class="w-full p-4 rounded-lg border-2">
             <canvas id="userChart"></canvas>
           </div>
-          <div class="w-full bg-gray-100 p-4 rounded-lg shadow-md">
+          <!-- Card 2 -->
+          <div class="w-full p-4 rounded-lg border-2">
             <canvas id="downloadsChart"></canvas>
           </div>
-          <div class="w-full bg-gray-100 p-4 rounded-lg shadow-md">
+          <!-- Card 3 -->
+          <div class="w-full p-4 rounded-lg border-2">
             <canvas id="earningsChart"></canvas>
           </div>
         </div>

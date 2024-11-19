@@ -27,7 +27,7 @@ const pricingPlans = ref([
       components: "All UI components",
       access: "Lifetime access",
       updates: "Free updates",
-      projects: "Use on 3 (Three) project",
+      projects: "Use on 3 (Three) projects",
       support: "4 Months support",
     },
     button: {
@@ -38,73 +38,59 @@ const pricingPlans = ref([
 </script>
 
 <template>
-  <!-- ====== Pricing Section Start -->
   <section
-    class="relative z-10 overflow-hidden bg-backgroundColor pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]"
+    class="relative z-10 overflow-hidden bg-backgroundColor pt-12 pb-8 lg:pt-20 lg:pb-12"
   >
-    <div class="container mx-auto">
-      <div class="-mx-4 flex flex-wrap">
-        <div class="w-full px-4">
-          <div class="mx-auto mb-[60px] max-w-[510px] text-center">
-            <h2
-              class="mb-3 text-3xl leading-[1.208] font-bold text-PrimaryColor sm:text-4xl md:text-[40px]"
-            >
-              Our Pricing Plan
-            </h2>
-            <p class="text-base text-SecondaryColor">
-              We offer a variety of plans to suit your needs and budget. Choose
-              the plan that best fits your musical goals and start exploring
-              everything our platform has to offer.
-            </p>
-          </div>
-        </div>
+    <div class="container mx-auto px-4">
+      <!-- Título de la sección -->
+      <div class="text-center mb-10">
+        <h2
+          class="text-2xl font-bold text-PrimaryColor sm:text-3xl md:text-4xl"
+        >
+          Our Pricing Plan
+        </h2>
+        <p class="mt-4 text-sm text-SecondaryColor sm:text-base">
+          We offer a variety of plans to suit your needs and budget. Choose the
+          plan that best fits your musical goals and start exploring everything
+          our platform has to offer.
+        </p>
       </div>
-      <div class="-mx-4 flex flex-wrap justify-center">
+
+      <!-- Tarjetas de planes -->
+      <div class="flex flex-wrap justify-center gap-6">
         <div
           v-for="(plan, index) in pricingPlans"
           :key="index"
-          class="w-full px-4 md:w-1/2 lg:w-1/3"
+          class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
         >
           <div
-            class="relative z-10 mb-10 overflow-hidden rounded-[10px] border-2 border-stroke bg-backgroundColor py-10 px-8 shadow-pricing sm:p-12 lg:py-10 lg:px-6 xl:p-[50px]"
+            class="relative z-10 mb-6 overflow-hidden rounded-lg border-2 border-stroke bg-backgroundColor p-6 transition-transform hover:scale-105 sm:p-8"
           >
-            <span class="mb-3 block text-lg font-semibold text-PrimaryColor">{{
-              plan.name
-            }}</span>
-            <h2 class="mb-5 text-[42px] font-bold text-dark">
+            <span class="block text-lg font-semibold text-PrimaryColor">
+              {{ plan.name }}
+            </span>
+            <h2 class="mt-3 text-4xl font-bold text-dark">
               <span class="text-PrimaryColor">{{ plan.price }}</span>
-              <span class="text-base text-SecondaryColor font-bold">
+              <span class="text-base text-SecondaryColor font-normal">
                 / month
               </span>
             </h2>
             <p
-              class="mb-8 border-b border-stroke pb-8 text-base text-SecondaryColor"
+              class="mt-4 border-b border-stroke pb-4 text-sm text-SecondaryColor"
             >
               {{ plan.description }}
             </p>
-            <div class="mb-9 flex flex-col gap-[14px]">
-              <p class="text-base text-SecondaryColor">
-                {{ plan.features.users }}
-              </p>
-              <p class="text-base text-SecondaryColor">
-                {{ plan.features.components }}
-              </p>
-              <p class="text-base text-SecondaryColor">
-                {{ plan.features.access }}
-              </p>
-              <p class="text-base text-SecondaryColor">
-                {{ plan.features.updates }}
-              </p>
-              <p class="text-base text-SecondaryColor">
-                {{ plan.features.projects }}
-              </p>
-              <p class="text-base text-SecondaryColor">
-                {{ plan.features.support }}
-              </p>
+            <div class="mt-6 space-y-2 text-sm text-SecondaryColor">
+              <p>{{ plan.features.users }}</p>
+              <p>{{ plan.features.components }}</p>
+              <p>{{ plan.features.access }}</p>
+              <p>{{ plan.features.updates }}</p>
+              <p>{{ plan.features.projects }}</p>
+              <p>{{ plan.features.support }}</p>
             </div>
             <a
-              href="javascript:void(0)"
-              class="block w-full rounded-md border border-PrimaryColorDark bg-PrimaryColor text-SecondaryColor p-3 text-center text-base font-medium transition hover:bg-yellow-300 hover:border-yellow-300"
+              href="#"
+              class="mt-6 block w-full rounded-md border border-PrimaryColor bg-PrimaryColor py-3 text-center text-sm font-medium text-SecondaryColor transition hover:bg-yellow-300 hover:border-yellow-300"
             >
               {{ plan.button.text }}
             </a>
