@@ -1,8 +1,8 @@
 venv/
 __pycache__/
 .env
-<<<<<<< HEAD
+<<<<<<<<< Temporary merge branch 1
 #prueba
-=======
+=========
 .DS_Store
->>>>>>> 7bfea4d8df895adf0c7db872fab13473a1c26633
+>>>>>>>>> Temporary merge branch 2

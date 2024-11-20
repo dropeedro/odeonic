@@ -1,6 +1,6 @@
 <template>
   <div>
-<<<<<<< HEAD
+<<<<<<<<< Temporary merge branch 1
     <div class="mx-4 flex flex-wrap">
       <div class="w-full px-4">
         <div class="mx-auto mb-[60px] max-w-[510px] text-left">
@@ -14,11 +14,11 @@
         </div>
       </div>
     </div>
-=======
+=========
     <h1>Admin Dashboard</h1>
     <p>Welcome, {{ userName }}!</p>
     <button @click="logout">Logout</button>
->>>>>>> 7bfea4d8df895adf0c7db872fab13473a1c26633
+>>>>>>>>> Temporary merge branch 2
   </div>
 </template>
 
