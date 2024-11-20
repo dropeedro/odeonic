@@ -25,7 +25,7 @@
           </li>
         </ul>
       </nav>
-
+      
       <!-- Buttons -->
       <div class="flex items-center space-x-2">
         <a href="/login" class="text-PrimaryColor hover:text-PrimaryColorDark duration-200">
