@@ -1,23 +1,26 @@
 <template>
   <div class="w-full px-4 bg-backgroundColor">
-    <div class="mx-auto mb-[60px] max-w-[510px] text-center">
+    <!-- Sección de texto -->
+    <div class="mx-auto mb-10 max-w-[90%] text-center md:max-w-[510px]">
       <h2
-        class="mb-3 text-3xl leading-[1.208] font-bold text-PrimaryColor sm:text-4xl md:text-[40px]"
+        class="mb-4 text-2xl font-bold leading-tight text-PrimaryColor sm:text-3xl md:text-4xl"
       >
         About Us
       </h2>
-      <p class="text-base text-SecondaryColor text-center">
+      <p class="text-sm text-SecondaryColor sm:text-base md:text-lg">
         We offer an innovative platform for generating music with our Virtual
         MIDI. Designed for musicians of all levels and casual users, our service
         allows you to create unique melodies and harmonies intuitively, without
         the need for advanced technical knowledge.
       </p>
     </div>
-    <div class="w-full overflow-hidden rounded-[10px]">
+
+    <!-- Imagen -->
+    <div class="w-full overflow-hidden rounded-lg sm:rounded-[10px]">
       <img
         src="../assets/aboutusimage.jpg"
         alt="About Us"
-        class="w-full object-cover"
+        class="w-full h-auto object-cover"
       />
     </div>
   </div>
