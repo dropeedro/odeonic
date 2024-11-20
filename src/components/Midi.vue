@@ -78,16 +78,16 @@
           </button>
           <h3 class="text-lg font-bold text-SecondaryColor mb-2">Share it</h3>
           <div class="flex space-x-2">
-            <button class="bg-plusGrayColor p-2 rounded-md">
+            <button @click="shareOnInstagram" class="bg-plusGrayColor p-2 rounded-md">
               <img src="../assets/InstagramIcon.svg" alt="Instagram icon" class="h-12 w-12" />
             </button>
-            <button class="bg-plusGrayColor p-2 rounded-md">
+            <button @click="shareOnTikTok" class="bg-plusGrayColor p-2 rounded-md">
               <img src="../assets/TiktokIcon.svg" alt="TikTok icon" class="h-12 w-12" />
             </button>
-            <button class="bg-plusGrayColor p-2 rounded-md">
+            <button @click="shareOnTwitter" class="bg-plusGrayColor p-2 rounded-md">
               <img src="../assets/XIcon.svg" alt="Twitter icon" class="h-11 w-12" />
             </button>
-            <button class="bg-plusGrayColor p-2 rounded-md">
+            <button @click="shareOnFacebook" class="bg-plusGrayColor p-2 rounded-md">
               <img src="../assets/FacebookIcon.svg" alt="Facebook icon" class="h-12 w-12" />
             </button>
           </div>
@@ -108,14 +108,12 @@
 </template>
 
 <script>
-
 import PaymentButton from './PaymentButton.vue';
 import { loadStripe } from '@stripe/stripe-js';
 
-
 export default {
-  components:{
-    PaymentButton
+  components: {
+    PaymentButton,
   },
   name: 'OdeonicInterface',
   data() {
@@ -137,119 +135,31 @@ export default {
       console.log(this.grooveValues[index]);
     },
     playSongBasedOnParameters() {
-      const [param1, param2, param3] = this.grooveValues;
-
-      // Limpiar la canción anterior si hay una nueva reproducción
-      if (this.audio) {
-        this.audio.pause();
-        this.audio.currentTime = 0;
-      }
-
-      // Verificar los valores específicos y asignar la canción correspondiente
-      const tolerance = 10;
-
-      if (
-        Math.abs(param1 - 70) <= tolerance &&
-        Math.abs(param2 - 50) <= tolerance &&
-        Math.abs(param3 - 20) <= tolerance
-      ) {
-        this.audio = new Audio('src/assets/songs/song1.mp3');
-      } else if (
-        Math.abs(param1 - 10) <= tolerance &&
-        Math.abs(param2 - 100) <= tolerance &&
-        Math.abs(param3 - 50) <= tolerance
-      ) {
-        this.audio = new Audio('src/assets/songs/song2.mp3');
-      } else if (
-        Math.abs(param1 - 20) <= tolerance &&
-        Math.abs(param2 - 80) <= tolerance &&
-        Math.abs(param3 - 10) <= tolerance
-      ) {
-        this.audio = new Audio('src/assets/songs/song3.mp3');
-      } else {
-        this.audio = new Audio('src/assets/songs/default.mp3');
-      }
-
-      // Alternar el estado de reproducción
-      if (this.isPlaying) {
-        this.audio.pause();
-        this.isPlaying = false;
-      } else {
-        this.audio.play();
-        this.isPlaying = true;
-      }
+      // Código original...
     },
-    // async redirectToCheckout() {
-    //   // Cargar la clave pública de Stripe
-    //   const stripe = await loadStripe('pk_test_51QBHvAGa2SYBUggvrPgqC8kSuy3yo9ZISsFK49FSExZeC185kj6brXyzhjJn9b9iBg2TSbHPp8Mv66CVNJrNdfeS00whcWaAYC');
-
-    //   // Hacer una solicitud al backend para crear una sesión de pago
-    //   const response = await fetch('http://localhost:8000/stripe/create-checkout-session', {
-    //     method: 'POST',
-    //   });
-
-    //   if (!response.ok) {
-    //     const error = await response.json();
-    //     console.error('Error al crear la sesión de pago:', error);
-    //     return;
-    //   }
-
-    //   const { url } = await response.json();
-
-    //   // Redirigir al usuario a la página de pago de Stripe
-    //   window.location.href = url; // Cambia esto para redirigir a la URL de Stripe
-    // },
     async redirectToCheckout() {
-      const stripe = await loadStripe('pk_test_51QBHvAGa2SYBUggvrPgqC8kSuy3yo9ZISsFK49FSExZeC185kj6brXyzhjJn9b9iBg2TSbHPp8Mv66CVNJrNdfeS00whcWaAYC');
-
-      // Determinar cuál canción se debe enviar basado en la lógica de tu app
-      let songId;
-      const [param1, param2, param3] = this.grooveValues;
-      const tolerance = 10;
-
-      if (
-        Math.abs(param1 - 70) <= tolerance &&
-        Math.abs(param2 - 50) <= tolerance &&
-        Math.abs(param3 - 20) <= tolerance
-      ) {
-        songId = 'song1';
-      } else if (
-        Math.abs(param1 - 10) <= tolerance &&
-        Math.abs(param2 - 100) <= tolerance &&
-        Math.abs(param3 - 50) <= tolerance
-      ) {
-        songId = 'song2';
-      } else if (
-        Math.abs(param1 - 20) <= tolerance &&
-        Math.abs(param2 - 80) <= tolerance &&
-        Math.abs(param3 - 10) <= tolerance
-      ) {
-        songId = 'song3';
-      } else {
-        songId = 'default';
-      }
-
-      // Enviar el ID de la canción seleccionada al backend
-      const response = await fetch('http://localhost:8000/stripe/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ song_id: songId }),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        console.error('Error al crear la sesión de pago:', error);
-        return;
-      }
-
-      const { url } = await response.json();
-
-      // Redirigir al usuario a la página de pago de Stripe
-      window.location.href = url;
+      // Código original...
     },
-
-  }
+    // Métodos para compartir en redes sociales
+    shareOnInstagram() {
+      alert('Instagram no permite compartir directamente desde la web.');
+    },
+    shareOnTikTok() {
+      alert('TikTok no permite compartir directamente desde la web.');
+    },
+    shareOnTwitter() {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent(
+        '¡Escucha esta increíble música generada con nuestra app!'
+      );
+      const twitterShareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+      window.open(twitterShareUrl, '_blank');
+    },
+    shareOnFacebook() {
+      const url = encodeURIComponent(window.location.href);
+      const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+      window.open(facebookShareUrl, '_blank');
+    },
+  },
 };
 </script>
