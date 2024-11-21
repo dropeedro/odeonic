@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full px-4 bg-backgroundColor">
+  <div class="pt-16 w-full px-4 bg-backgroundColor">
     <!-- Sección de texto -->
     <div class="mx-auto mb-10 max-w-[90%] text-center md:max-w-[510px]">
       <h2
