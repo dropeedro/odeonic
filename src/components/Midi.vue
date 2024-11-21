@@ -141,8 +141,11 @@ export default {
       // Código original...
     },
     // Métodos para compartir en redes sociales
+  },
     shareOnInstagram() {
-      alert('Instagram no permite compartir directamente desde la web.');
+      const imageURL = 'https://yourserver.com/path/to/image.png'; // URL pública de la imagen
+      const instagramIntent = `instagram://story?background_image=${encodeURIComponent(imageURL)}`;
+      window.location.href = instagramIntent;
     },
     shareOnTikTok() {
       alert('TikTok no permite compartir directamente desde la web.');
@@ -160,6 +163,5 @@ export default {
       const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
       window.open(facebookShareUrl, '_blank');
     },
-  },
-};
+  };
 </script>
