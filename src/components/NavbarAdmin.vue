@@ -2,10 +2,10 @@
   <header class="bg-SecondaryColor sticky top-0 shadow-md px-4 py-2 z-50">
     <div class="flex items-center justify-between max-w-6xl mx-auto">
       <!-- Logo -->
-      <h1 class="flex-shrink-0 text-4xl font-bold text-PrimaryColor">
+      <h2 class="flex-shrink-0 text-4xl font-bold text-PrimaryColor">
         RIFF-ME
         <h5 class="text-sm font-medium">MUSIC GENERATOR</h5>
-      </h1>
+      </h2>
       <!-- Navigation for larger screens -->
       <nav class="hidden md:block font-semibold text-md">
         <ul class="flex items-center space-x-4 text-PrimaryColor">

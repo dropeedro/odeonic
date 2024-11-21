@@ -31,7 +31,7 @@
 
       <!-- Buttons -->
       <div class="flex items-center space-x-2">
-        <a href="/login" class="text-PrimaryColor hover:text-PrimaryColorDark duration-200">
+        <button @click="loginWithKeycloak" class="text-PrimaryColor hover:text-PrimaryColorDark duration-200">
           <svg class="h-8 sm:h-10 p-1" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
             stroke-linejoin="round">
@@ -40,7 +40,7 @@
             <path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
             <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
           </svg>
-        </a>
+        </button>
 
         <!-- Hamburger Menu for Small Screens -->
         <button class="md:hidden text-PrimaryColor focus:outline-none" @click="toggleMenu">
@@ -73,6 +73,8 @@
 </template>
 
 <script>
+import { keycloak, initKeycloak } from "../keycloak";
+
 export default {
   data() {
     return {
@@ -83,6 +85,23 @@ export default {
     toggleMenu() {
       this.menuOpen = !this.menuOpen;
     },
+    loginWithKeycloak() {
+      initKeycloak()
+        .then(() => {
+          keycloak
+            .login()
+            .then(() => {
+              this.$router.push("/Admin");
+            })
+            .catch((error) => {
+              console.error("Error during Keycloak login", error);
+            });
+        })
+        .catch((error) => {
+          console.error("Error during Keycloak initialization", error);
+        });
+    },
   },
 };
+
 </script>
