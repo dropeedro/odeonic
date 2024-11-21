@@ -172,6 +172,9 @@ import bcrypt
 from app.routers import users, plans, secure_data, stripe as stripe_router
 from app.auth.keycloak import verify_token
 from app.keycloak_routes import router as keycloak_router
+
+from app.routers.stripe_webhook import router as webhook_router 
+
 import os
 
 app = FastAPI()
@@ -291,3 +294,8 @@ def test_insert_user():
         return {"message": f"Usuario insertado con ID: {result.inserted_id}"}
     except Exception as e:
         return {"error": str(e)}
+    
+
+app.include_router(plans.router, prefix="/api", tags=["Plans"])
+
+app.include_router(webhook_router, prefix="/api", tags=["Webhook"])
