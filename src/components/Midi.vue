@@ -90,16 +90,16 @@
           </button>
           <h3 class="text-lg font-bold text-SecondaryColor mb-2">Share it</h3>
           <div class="flex space-x-2">
-            <button class="bg-plusGrayColor p-2 rounded-md">
+            <button @click="shareOnSocialMedia('Instagram')" class="bg-plusGrayColor p-2 rounded-md">
               <img src="../assets/InstagramIcon.svg" alt="Instagram icon" class="h-12 w-12" />
             </button>
-            <button class="bg-plusGrayColor p-2 rounded-md">
+            <button @click="shareOnSocialMedia('TikTok')" class="bg-plusGrayColor p-2 rounded-md">
               <img src="../assets/TiktokIcon.svg" alt="TikTok icon" class="h-12 w-12" />
             </button>
-            <button class="bg-plusGrayColor p-2 rounded-md">
+            <button @click="shareOnSocialMedia('Twitter')" class="bg-plusGrayColor p-2 rounded-md">
               <img src="../assets/XIcon.svg" alt="Twitter icon" class="h-11 w-12" />
             </button>
-            <button class="bg-plusGrayColor p-2 rounded-md">
+            <button @click="shareOnSocialMedia('Facebook')" class="bg-plusGrayColor p-2 rounded-md">
               <img src="../assets/FacebookIcon.svg" alt="Facebook icon" class="h-12 w-12" />
             </button>
           </div>
@@ -151,123 +151,78 @@ export default {
       console.log(this.grooveValues[index]);
     },
     playSongBasedOnParameters() {
-      const [param1, param2, param3] = this.grooveValues;
+  const [param1, param2, param3] = this.grooveValues;
+  const tolerance = 10;
 
-      // Limpiar la canción anterior si hay una nueva reproducción
-      if (this.audio) {
-        this.audio.pause();
-        this.audio.currentTime = 0;
-      }
+  // Reiniciar la URL de la canción al comenzar una nueva reproducción
+  this.songUrl = null;
 
-      // Verificar los valores específicos y asignar la canción correspondiente
-      const tolerance = 10;
+  // Limpiar la canción anterior si hay una nueva reproducción
+  if (this.audio) {
+    this.audio.pause();
+    this.audio.currentTime = 0;
+  }
 
-      if (
-        Math.abs(param1 - 70) <= tolerance &&
-        Math.abs(param2 - 50) <= tolerance &&
-        Math.abs(param3 - 20) <= tolerance
-      ) {
-        this.audio = new Audio("src/assets/songs/song1.mp3");
-      } else if (
-        Math.abs(param1 - 10) <= tolerance &&
-        Math.abs(param2 - 100) <= tolerance &&
-        Math.abs(param3 - 50) <= tolerance
-      ) {
-        this.audio = new Audio("src/assets/songs/song2.mp3");
-      } else if (
-        Math.abs(param1 - 20) <= tolerance &&
-        Math.abs(param2 - 80) <= tolerance &&
-        Math.abs(param3 - 10) <= tolerance
-      ) {
-        this.audio = new Audio("src/assets/songs/song3.mp3");
-      } else {
-        this.audio = new Audio("src/assets/songs/default.mp3");
-      }
+  // Verificar los valores específicos y asignar la canción correspondiente
+  if (
+    Math.abs(param1 - 70) <= tolerance &&
+    Math.abs(param2 - 50) <= tolerance &&
+    Math.abs(param3 - 20) <= tolerance
+  ) {
+    this.audio = new Audio("src/assets/songs/song1.mp3");
+    this.songUrl = "https://your-public-server.com/song1.mp3";
+  } else if (
+    Math.abs(param1 - 10) <= tolerance &&
+    Math.abs(param2 - 100) <= tolerance &&
+    Math.abs(param3 - 50) <= tolerance
+  ) {
+    this.audio = new Audio("src/assets/songs/song2.mp3");
+    this.songUrl = "https://your-public-server.com/song2.mp3";
+  } else if (
+    Math.abs(param1 - 20) <= tolerance &&
+    Math.abs(param2 - 80) <= tolerance &&
+    Math.abs(param3 - 10) <= tolerance
+  ) {
+    this.audio = new Audio("src/assets/songs/song3.mp3");
+    this.songUrl = "https://your-public-server.com/song3.mp3";
+  } else {
+    this.audio = new Audio("src/assets/songs/default.mp3");
+    this.songUrl = "https://your-public-server.com/default.mp3";
+  }
 
-      // Alternar el estado de reproducción
-      if (this.isPlaying) {
-        this.audio.pause();
-        this.isPlaying = false;
-      } else {
-        this.audio.play();
-        this.isPlaying = true;
-      }
-    },
-    // async redirectToCheckout() {
-    //   // Cargar la clave pública de Stripe
-    //   const stripe = await loadStripe('pk_test_51QBHvAGa2SYBUggvrPgqC8kSuy3yo9ZISsFK49FSExZeC185kj6brXyzhjJn9b9iBg2TSbHPp8Mv66CVNJrNdfeS00whcWaAYC');
+  // Alternar el estado de reproducción
+  if (this.isPlaying) {
+    this.audio.pause();
+    this.isPlaying = false;
+    this.songUrl = null; // Limpiar la URL de la canción si se detiene
+  } else {
+    this.audio.play();
+    this.isPlaying = true;
+  }
+},
+shareOnSocialMedia(platform) {
+  // Verificar si hay una canción seleccionada (es decir, si songUrl está definida)
+  if (!this.songUrl) {
+    alert("Ajusta los parámetros, reproduce una canción y asegúrate de no detenerla antes de compartir.");
+    return;
+  }
 
-    //   // Hacer una solicitud al backend para crear una sesión de pago
-    //   const response = await fetch('http://localhost:8000/stripe/create-checkout-session', {
-    //     method: 'POST',
-    //   });
+  const publicSongUrl = this.songUrl; // Asegúrate de que songUrl apunte a una URL pública.
 
-    //   if (!response.ok) {
-    //     const error = await response.json();
-    //     console.error('Error al crear la sesión de pago:', error);
-    //     return;
-    //   }
+  const socialMediaUrls = {
+    Instagram: `https://www.instagram.com/sharer/sharer.php?u=${encodeURIComponent(publicSongUrl)}`,
+    TikTok: `https://www.tiktok.com/share/video?url=${encodeURIComponent(publicSongUrl)}`,
+    Twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(publicSongUrl)}&text=Check out this awesome song!`,
+    Facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(publicSongUrl)}`,
+  };
 
-    //   const { url } = await response.json();
-
-    //   // Redirigir al usuario a la página de pago de Stripe
-    //   window.location.href = url; // Cambia esto para redirigir a la URL de Stripe
-    // },
-    async redirectToCheckout() {
-      const stripe = await loadStripe(
-        "pk_test_51QBHvAGa2SYBUggvrPgqC8kSuy3yo9ZISsFK49FSExZeC185kj6brXyzhjJn9b9iBg2TSbHPp8Mv66CVNJrNdfeS00whcWaAYC"
-      );
-
-      // Determinar cuál canción se debe enviar basado en la lógica de tu app
-      let songId;
-      const [param1, param2, param3] = this.grooveValues;
-      const tolerance = 10;
-
-      if (
-        Math.abs(param1 - 70) <= tolerance &&
-        Math.abs(param2 - 50) <= tolerance &&
-        Math.abs(param3 - 20) <= tolerance
-      ) {
-        songId = "song1";
-      } else if (
-        Math.abs(param1 - 10) <= tolerance &&
-        Math.abs(param2 - 100) <= tolerance &&
-        Math.abs(param3 - 50) <= tolerance
-      ) {
-        songId = "song2";
-      } else if (
-        Math.abs(param1 - 20) <= tolerance &&
-        Math.abs(param2 - 80) <= tolerance &&
-        Math.abs(param3 - 10) <= tolerance
-      ) {
-        songId = "song3";
-      } else {
-        songId = "default";
-      }
-
-      // Enviar el ID de la canción seleccionada al backend
-      const response = await fetch(
-        "http://localhost:8000/stripe/create-checkout-session",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ song_id: songId }),
-        }
-      );
-
-      if (!response.ok) {
-        const error = await response.json();
-        console.error("Error al crear la sesión de pago:", error);
-        return;
-      }
-
-      const { url } = await response.json();
-
-      // Redirigir al usuario a la página de pago de Stripe
-      window.location.href = url;
-    },
+  // Abre la URL correspondiente en una nueva ventana
+  if (socialMediaUrls[platform]) {
+    window.open(socialMediaUrls[platform], "_blank");
+  } else {
+    console.error(`La plataforma ${platform} no está soportada.`);
+  }
+},
   },
 };
 </script>
