@@ -10,13 +10,10 @@
       <nav class="hidden md:block font-semibold text-md">
         <ul class="flex items-center space-x-4 text-PrimaryColor">
           <li class="p-4 hover:text-PrimaryColorDark text-PrimaryColor duration-200 cursor-pointer">
-            
           </li>
           <li class="p-4 hover:text-PrimaryColorDark text-PrimaryColor duration-200 cursor-pointer">
-            
           </li>
           <li class="p-4 hover:text-PrimaryColorDark text-PrimaryColor duration-200 cursor-pointer">
-            
           </li>
         </ul>
       </nav>
@@ -99,7 +96,10 @@
 
 <script setup>
 import { ref } from "vue";
+import { keycloak } from "../keycloak";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const isDropdownOpen = ref(false);
 const isModalOpen = ref(false);
 const menuOpen = ref(false);
@@ -122,7 +122,7 @@ function closeModal() {
 }
 
 function logout() {
-  console.log("Cerrar sesión");
+  keycloak.logout({ redirectUri: "http://localhost:5173/login" }); // Redirige al login
   closeModal();
 }
 </script>
