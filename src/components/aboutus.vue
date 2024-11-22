@@ -1,6 +1,7 @@
 <template>
-  <div class="w-full px-4 bg-backgroundColor">
-    <div class="mx-auto mb-[60px] max-w-[510px] text-center">
+  <div class="pt-16 w-full px-4 bg-backgroundColor">
+    <!-- Sección de texto -->
+    <div class="mx-auto mb-10 max-w-[90%] text-center md:max-w-[510px]">
       <h2
         class="mb-3 text-3xl leading-[1.208] font-bold text-PrimaryColor sm:text-4xl md:text-[40px]"
       >

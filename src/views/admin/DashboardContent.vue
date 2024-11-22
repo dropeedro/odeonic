@@ -1,20 +1,44 @@
 <template>
   <div class="admin-dashboard">
     <div class="dashboard-content">
+      <!-- Título principal -->
       <div class="section-header">
-        <h1 class="text-3xl font-bold mb-6 pt-10 text-SecondaryColor">
+        <h1
+          class="text-3xl font-bold mb-6 pt-10 text-SecondaryColor text-center sm:text-left"
+        >
           Admin Dashboard
         </h1>
-        <div class="grid grid-cols-3 gap-5"> <!-- 3 columnas en el grid -->
-          <div class="w-full bg-gray-100 p-4 rounded-lg shadow-md">
-            <canvas id="userChart"></canvas>
-          </div>
-          <div class="w-full bg-gray-100 p-4 rounded-lg shadow-md">
-            <canvas id="downloadsChart"></canvas>
-          </div>
-          <div class="w-full bg-gray-100 p-4 rounded-lg shadow-md">
-            <canvas id="earningsChart"></canvas>
-          </div>
+      </div>
+
+      <!-- Tarjeta de Total Plans -->
+      <div class="grid grid-cols-1 gap-6 mb-6">
+        <div
+          class="card bg-white w-full p-6 rounded-lg border-2 border-plusGrayColor text-center"
+        >
+          <h2 class="text-xl font-bold text-gray-800 mb-4">Total Plans</h2>
+          <p class="text-4xl font-bold text-PrimaryColor">{{ totalPlans }}</p>
+        </div>
+      </div>
+
+      <!-- Grid de Canvas -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div
+          class="card bg-white w-full p-6 rounded-lg border-2 border-plusGrayColor"
+        >
+          <canvas id="userChart"></canvas>
+        </div>
+        <!-- Card 2 -->
+        <div
+          class="card bg-white w-full p-6 rounded-lg border-2 border-plusGrayColor"
+        >
+          <canvas id="downloadsChart"></canvas>
+        </div>
+        <!-- Card 3 -->
+        <div
+          class="card bg-white w-full p-6 rounded-lg border-2 border-plusGrayColor"
+        >
+          <canvas id="earningsChart"></canvas>
         </div>
       </div>
     </div>
@@ -23,12 +47,20 @@
 
 <script>
 import { Chart, registerables } from "chart.js";
+import axios from "../../axios"; // Asegúrate de usar la ruta correcta
 
 Chart.register(...registerables);
 
 export default {
   name: "DashboardContent",
+  data() {
+    return {
+      totalPlans: 0, // Inicializar el conteo total de planes
+    };
+  },
   mounted() {
+    this.fetchTotalPlans(); // Obtener el conteo de planes al cargar el componente
+
     // Ejemplo de gráfico para usuarios
     new Chart(document.getElementById("userChart"), {
       type: "line",
@@ -87,6 +119,16 @@ export default {
         ],
       },
     });
+  },
+  methods: {
+    async fetchTotalPlans() {
+      try {
+        const response = await axios.get("/plans"); // Solicita todos los planes
+        this.totalPlans = response.data.length; // Asigna el número total de planes
+      } catch (error) {
+        console.error("Error fetching total plans:", error);
+      }
+    },
   },
 };
 </script>
