@@ -1,5 +1,5 @@
 <template>
-  <div class="admin-dashboard px-4 sm:px-6 lg:px-8">
+  <div class="admin-dashboard">
     <div class="dashboard-content">
       <!-- Título principal -->
       <div class="section-header">
