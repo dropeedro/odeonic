@@ -1,6 +1,6 @@
 <!-- <template>
   <div class="bg-secondaryWhiteColor min-h-screen flex items-start justify-center mt-12">
-    <div class="bg-secondaryWhiteColor p-8 rounded-lg border-2 w-96">
+    <div class="bg-secondaryWhiteColor p-8 rounded-lg shadow-2xl w-96">
       <h2 class="pt-8 text-3xl text-primaryPurpleColor font-bold mb-2">Login</h2>
       <p class="text-md text-primaryPurpleColor mb-6">Remember not to show your password to anyone!</p>
 
@@ -73,7 +73,7 @@ export default {
   <div
     class="bg-backgroundColor min-h-screen flex items-start justify-center mt-12"
   >
-    <div class="bg-backgroundColor p-8 rounded-lg border-2 w-96">
+    <div class="bg-backgroundColor p-8 rounded-lg shadow-2xl w-96">
       <h2 class="pt-8 text-3xl text-SecondaryColor font-bold mb-2">Login</h2>
       <p class="text-md text-SecondaryColor mb-6">
         Remember not to show your password to anyone!

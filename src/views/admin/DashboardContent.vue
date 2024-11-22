@@ -1,22 +1,18 @@
 <template>
-  <div class="admin-dashboard px-4 sm:px-6 lg:px-8">
+  <div class="admin-dashboard">
     <div class="dashboard-content">
       <div class="section-header">
-        <h1 class="text-3xl font-bold mb-6 pt-10 text-SecondaryColor text-center sm:text-left">
+        <h1 class="text-3xl font-bold mb-6 pt-10 text-SecondaryColor">
           Admin Dashboard
         </h1>
-        <!-- Grid responsivo -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Card 1 -->
-          <div class="card bg-white w-full p-6 rounded-lg border-2 border-plusGrayColor">
+        <div class="grid grid-cols-3 gap-5"> <!-- 3 columnas en el grid -->
+          <div class="w-full bg-gray-100 p-4 rounded-lg shadow-md">
             <canvas id="userChart"></canvas>
           </div>
-          <!-- Card 2 -->
-          <div class="card bg-white w-full p-6 rounded-lg border-2 border-plusGrayColor">
+          <div class="w-full bg-gray-100 p-4 rounded-lg shadow-md">
             <canvas id="downloadsChart"></canvas>
           </div>
-          <!-- Card 3 -->
-          <div class="card bg-white w-full p-6 rounded-lg border-2 border-plusGrayColor">
+          <div class="w-full bg-gray-100 p-4 rounded-lg shadow-md">
             <canvas id="earningsChart"></canvas>
           </div>
         </div>
@@ -24,7 +20,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import { Chart, registerables } from "chart.js";
