@@ -175,6 +175,7 @@ from bson.json_util import dumps
 import json
 import os
 from bson import ObjectId
+from app.routers.stripe_webhook import router as webhook_router 
 
 app = FastAPI()
 
@@ -328,3 +329,8 @@ async def bloquear_usuario(user_id: str):
         return {"isBlocked": is_blocked}
     else:
         raise HTTPException(status_code=500, detail="Error al actualizar el usuario")
+
+
+app.include_router(plans.router, prefix="/api", tags=["Plans"])
+
+app.include_router(webhook_router, prefix="/api", tags=["Webhook"])
