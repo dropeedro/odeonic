@@ -24,7 +24,9 @@ const initKeycloak = () => {
     })
     .then((authenticated) => {
       if (authenticated) {
-        console.log("Keycloak authenticated");
+        console.log("Keycloak authenticated" , authenticated);
+        localStorage.setItem("keycloak_token", keycloak.token); // Guarda el token
+        localStorage.setItem("keycloak_refreshToken", keycloak.refreshToken); // Guarda el refresh token
       } else {
         console.warn("User is not authenticated");
       }
