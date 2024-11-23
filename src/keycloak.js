@@ -32,13 +32,18 @@ const initKeycloak = () => {
         const roles = keycloak.tokenParsed?.realm_access?.roles || [];
         const currentPath = window.location.pathname; // Obtiene la ruta actual
 
+        console.log(roles)
         if (currentPath === '/' || currentPath === '/index.html') {
-          if (roles.includes('admin')) {
+          // Verifica si el usuario tiene el rol "uma_authorization"
+          if (roles.includes('uma_authorization')) {
+            // Redirige a la ruta del administrador
             window.location.href = 'http://localhost:5173/admin';
-          } else if (!roles.includes('admin')) {
+          } else {
+            // Redirige a la ruta del usuario normal
             window.location.href = 'http://localhost:5173/user';
           }
         }
+        
 
       } else {
         console.warn("User is not authenticated");
