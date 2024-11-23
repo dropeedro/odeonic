@@ -5,6 +5,7 @@ from app.services.plan_service import PlanService
 from app.services.user_service import update_subscription
 import stripe
 import os
+from app.db.mongo import db
 
 # Router initialization
 router = APIRouter()
@@ -28,13 +29,19 @@ class SubscriptionUpdateRequest(BaseModel):
     user_email: str
     subscription_data: dict
 
-# Plan endpoints
 @router.get("/", response_model=list[Plan])
 async def get_all_plans():
     """
     Retrieve all available plans from the database.
     """
-    return PlanService.get_all_plans()
+    plans = db["plans"].find({})
+    return [
+        {
+            "id": str(plan["_id"]),  # Solo si necesitas incluir el `_id` como referencia adicional
+            **plan
+        }
+        for plan in plans
+    ]
 
 @router.post("/", response_model=Plan)
 async def create_plan(plan: Plan):
@@ -43,19 +50,55 @@ async def create_plan(plan: Plan):
     """
     return PlanService.create_plan(plan)
 
-@router.put("/{plan_id}", response_model=Plan)
-async def update_plan(plan_id: str, plan: Plan):
-    """
-    Update an existing plan in the database.
-    """
-    return PlanService.update_plan(plan_id, plan)
+from bson import ObjectId
 
-@router.delete("/{plan_id}")
-async def delete_plan(plan_id: str):
+@router.put("/{plan_type}", response_model=Plan)
+async def update_plan(plan_type: str, plan: Plan):
+    # Depuración: imprime los datos recibidos
+    print(f"Received Plan Type: {plan_type}")
+    print(f"Received Plan Data: {plan.dict(exclude_unset=True)}")  # Excluye campos no establecidos
+
+    if not plan_type:
+        raise HTTPException(status_code=400, detail="Invalid plan type")
+
+    existing_plan = db.plans.find_one({"type": plan_type})
+    if not existing_plan:
+        raise HTTPException(status_code=404, detail="Plan not found")
+
+    # Actualización de datos, excluyendo campos innecesarios
+    update_data = plan.dict(exclude={"id"}, exclude_unset=True)  # Excluir 'id' del payload
+    result = db.plans.update_one(
+        {"type": plan_type},
+        {"$set": update_data}
+    )
+
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Failed to update plan")
+
+    updated_plan = db.plans.find_one({"type": plan_type})
+    updated_plan["_id"] = str(updated_plan["_id"])  # Convertir ObjectId a string
+    return updated_plan
+
+
+
+@router.delete("/{plan_type}")
+async def delete_plan(plan_type: str):
     """
-    Delete a plan from the database by its ID.
+    Delete a plan from the database by its type.
     """
-    return PlanService.delete_plan(plan_id)
+    # Verificar si el tipo de plan está definido
+    if not plan_type:
+        raise HTTPException(status_code=400, detail="Invalid plan type")
+
+    # Intentar encontrar y eliminar el plan por 'type'
+    result = db.plans.delete_one({"type": plan_type})
+
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Plan not found")
+
+    return {"message": f"Plan with type '{plan_type}' deleted successfully"}
+
+
 
 # Endpoint to create a subscription session
 @router.post("/create-subscription-session")

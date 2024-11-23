@@ -20,13 +20,26 @@ const initKeycloak = () => {
       onLoad: 'check-sso', // Cambia esto si necesitas que inicie sesión al cargar
       checkLoginIframe: false,
       silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html',
-      responseMode: 'query',  
+      responseMode: 'query',
+      // redirectUri: 'http://localhost:5173/user'  
     })
     .then((authenticated) => {
       if (authenticated) {
         console.log("Keycloak authenticated" , authenticated);
         localStorage.setItem("keycloak_token", keycloak.token); // Guarda el token
         localStorage.setItem("keycloak_refreshToken", keycloak.refreshToken); // Guarda el refresh token
+
+        const roles = keycloak.tokenParsed?.realm_access?.roles || [];
+        const currentPath = window.location.pathname; // Obtiene la ruta actual
+
+        if (currentPath === '/' || currentPath === '/index.html') {
+          if (roles.includes('admin')) {
+            window.location.href = 'http://localhost:5173/admin';
+          } else if (!roles.includes('admin')) {
+            window.location.href = 'http://localhost:5173/user';
+          }
+        }
+
       } else {
         console.warn("User is not authenticated");
       }
