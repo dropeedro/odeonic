@@ -103,18 +103,18 @@
               <img src="../assets/FacebookIcon.svg" alt="Facebook icon" class="h-12 w-12" />
             </button>
           </div>
-          <h3 class="font-bold text-SecondaryColor mt-4 mb-1 text-lg">
+          <h3 class="font-bold text-SecondaryColor mt-4 mb-1 text-lg" v-if="!isAuthenticated">
             And that's not all
           </h3>
-          <p class="text-sm text-SecondaryColor mb-4">
+          <p class="text-sm text-SecondaryColor mb-4" v-if="!isAuthenticated">
             Unlock more features when you create an account
           </p>
-          <a href="/register"
+          <a v-if="!isAuthenticated" href="/register"
             class="bg-SecondaryColor text-secondaryWhiteColor py-4 px-4 rounded-md w-full mb-2 font-semibold block text-center">
             Create a free Account
           </a>
-          <p class="text-sm text-center">You already have an account?</p>
-          <p class="text-lg text-center text-SecondaryColor font-semibold p-2">
+          <p class="text-sm text-center" v-if="!isAuthenticated">You already have an account?</p>
+          <p class="text-lg text-center text-SecondaryColor font-semibold p-2" v-if="!isAuthenticated">
             <a href="/login" class="text-SecondaryColor">Log In</a>
           </p>
         </div>
@@ -126,6 +126,7 @@
 <script>
 import PaymentButton from "./PaymentButton.vue";
 import { loadStripe } from "@stripe/stripe-js";
+import { keycloak } from "../keycloak";
 
 export default {
   components: {
@@ -223,6 +224,66 @@ shareOnSocialMedia(platform) {
     console.error(`La plataforma ${platform} no está soportada.`);
   }
 },
+async redirectToCheckout() {
+      const stripe = await loadStripe(
+        "pk_test_51QBHvAGa2SYBUggvrPgqC8kSuy3yo9ZISsFK49FSExZeC185kj6brXyzhjJn9b9iBg2TSbHPp8Mv66CVNJrNdfeS00whcWaAYC"
+      );
+
+      // Determinar cuál canción se debe enviar basado en la lógica de tu app
+      let songId;
+      const [param1, param2, param3] = this.grooveValues;
+      const tolerance = 10;
+
+      if (
+        Math.abs(param1 - 70) <= tolerance &&
+        Math.abs(param2 - 50) <= tolerance &&
+        Math.abs(param3 - 20) <= tolerance
+      ) {
+        songId = "song1";
+      } else if (
+        Math.abs(param1 - 10) <= tolerance &&
+        Math.abs(param2 - 100) <= tolerance &&
+        Math.abs(param3 - 50) <= tolerance
+      ) {
+        songId = "song2";
+      } else if (
+        Math.abs(param1 - 20) <= tolerance &&
+        Math.abs(param2 - 80) <= tolerance &&
+        Math.abs(param3 - 10) <= tolerance
+      ) {
+        songId = "song3";
+      } else {
+        songId = "default";
+      }
+
+      // Enviar el ID de la canción seleccionada al backend
+      const response = await fetch(
+        "http://localhost:8000/stripe/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ song_id: songId }),
+        }
+      );
+
+      if (!response.ok) {
+        const error = await response.json();
+        console.error("Error al crear la sesión de pago:", error);
+        return;
+      }
+
+      const { url } = await response.json();
+
+      // Redirigir al usuario a la página de pago de Stripe
+      window.location.href = url;
+    },
   },
+
+  created() {
+    this.isAuthenticated = keycloak.authenticated; // Verifica si la sesión está activa
+  },
+
 };
 </script>

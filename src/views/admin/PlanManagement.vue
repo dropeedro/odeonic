@@ -22,6 +22,7 @@
             class="input-field mb-4 border-2 border-plusGrayColor p-3 rounded-lg w-full"></textarea>
           <textarea v-model="newPlan.features" placeholder="Plan Features (comma separated)"
             class="input-field mb-4 border-2 border-plusGrayColor p-3 rounded-lg w-full"></textarea>
+          <input v-model="newPlan.type" placeholder="plan id (one word)" class="input-field mb-4 border-2 border-plusGrayColor p-3 rounded-lg w-full"/>
           <button @click="createPlan"
             class="primary-btn w-full py-3 text-backgroundColor bg-green-500 hover:bg-green-600 rounded-md">
             Add Plan
@@ -59,7 +60,7 @@
                   class="edit-btn text-white bg-PrimaryColor hover:bg-PrimaryColorDark px-4 py-2 rounded-md">
                   Edit
                 </button>
-                <button @click="deletePlan(plan._id)"
+                <button @click="deletePlan(plan.type)"
                   class="delete-btn text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md">
                   Delete
                 </button>
@@ -74,13 +75,15 @@
           <div class="modal-content bg-white p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-md">
             <h2 class="text-2xl font-semibold mb-4">Edit Plan</h2>
             <input v-model="selectedPlan.name" placeholder="Plan Name"
-              class="input-field mb-4 border-2 border-plusGrayColor p-3 rounded-lg w-full" />
+              class="input-field mb-4 border-2 border-plusGrayColor p-3 rounded-lg w-full" @input="console.log('Plan Name Updated:', selectedPlan.name)"  />
             <input v-model.number="selectedPlan.price" type="number" placeholder="Plan Price (USD)"
               class="input-field mb-4 border-2 border-plusGrayColor p-3 rounded-lg w-full" />
             <textarea v-model="selectedPlan.description" placeholder="Plan Description"
               class="input-field mb-4 border-2 border-plusGrayColor p-3 rounded-lg w-full"></textarea>
             <textarea v-model="selectedPlan.featuresString" placeholder="Plan Features (comma separated)"
               class="input-field mb-4 border-2 border-plusGrayColor p-3 rounded-lg w-full"></textarea>
+            <input v-model="selectedPlan.type" placeholder="plan id (one word)" class="input-field mb-4 border-2 border-plusGrayColor p-3 rounded-lg w-full"/>
+
             <div class="flex justify-between mt-6">
               <button @click="updatePlan"
                 class="primary-btn py-2 px-4 text-white bg-green-500 hover:bg-green-600 rounded-md">
@@ -124,6 +127,7 @@ export default {
         const response = await axios.get("/plans");
         this.plans = response.data.map(plan => ({
           ...plan,
+          _id: plan._id || null,
           features: plan.features ? plan.features.split(",") : []
         }));
       } catch (error) {
@@ -142,6 +146,7 @@ export default {
           price: this.newPlan.price,
           description: this.newPlan.description,
           features: this.newPlan.features,
+          type: this.newPlan.type.trim(),
         };
         await axios.post("/plans", newPlan);
         this.fetchPlans();
@@ -150,35 +155,54 @@ export default {
         console.error("Error creating plan:", error);
       }
     },
+
     editPlan(plan) {
+      console.log("Editing Plan:", plan); // Verifica el plan que se está editando
       this.selectedPlan = { ...plan, featuresString: plan.features.join(", ") };
     },
+
     async updatePlan() {
-      if (!this.selectedPlan || !this.selectedPlan._id) return;
+      if (!this.selectedPlan || !this.selectedPlan.type) {
+        console.error("No plan selected or missing type");
+        alert("Error: Missing type for the selected plan");
+        return;
+      }
 
       try {
-        await axios.put(`/plans/${this.selectedPlan._id}`, {
-          name: this.selectedPlan.name,
-          price: this.selectedPlan.price,
-          description: this.selectedPlan.description,
-          features: this.selectedPlan.featuresString,
-        });
+        const updatedPlan = {
+          name: this.selectedPlan.name.trim(),
+          price: parseFloat(this.selectedPlan.price),
+          description: this.selectedPlan.description.trim(),
+          features: this.selectedPlan.featuresString.split(",").map(f => f.trim()).join(","),
+          type: this.selectedPlan.type.trim(), // Es necesario para identificar el plan
+        };
+
+        console.log("Sending Updated Plan:", updatedPlan); // Depuración
+        await axios.put(`/plans/${this.selectedPlan.type}`, updatedPlan);
         this.fetchPlans();
-        this.selectedPlan = null; // Close modal after update
+        this.selectedPlan = null; // Limpia el modal de edición
       } catch (error) {
-        console.error("Error updating plan:", error);
+        console.error("Error updating plan:", error.response?.data || error.message);
+        alert(`Error updating plan: ${error.response?.data?.detail || error.message}`);
       }
     },
-    async deletePlan(planId) {
-      if (!confirm("Are you sure you want to delete this plan?")) return;
+
+    async deletePlan(planType) {
+      if (!confirm(`Are you sure you want to delete the plan of type '${planType}'?`)) {
+        return;
+      }
 
       try {
-        await axios.delete(`/plans/${planId}`);
-        this.fetchPlans();
+        console.log(`Deleting plan with type: ${planType}`); // Depuración
+        await axios.delete(`/plans/${planType}`); // Usa el campo 'type' como parámetro
+        this.fetchPlans(); // Refresca la lista de planes
+        alert(`Plan of type '${planType}' deleted successfully`);
       } catch (error) {
-        console.error("Error deleting plan:", error);
+        console.error("Error deleting plan:", error.response?.data || error.message);
+        alert(`Error deleting plan: ${error.response?.data?.detail || error.message}`);
       }
     },
+
     cancelEdit() {
       this.selectedPlan = null; // Close modal
     },
